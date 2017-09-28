@@ -5543,7 +5543,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         if(Kd2.getText().equals("")){
             if(ChkRM.isSelected()==true){
                 if(tahun.equals("Yes")){
-                    awalantahun=DTPDaftar.getSelectedItem().toString().substring(8,10);
+                    awalantahun=DTPDaftar.getSelectedItem().toString().substring(6,10);
                 }else{
                     awalantahun="";
                 }

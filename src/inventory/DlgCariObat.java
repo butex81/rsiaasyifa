@@ -734,7 +734,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                                 }                                
                             } catch (Exception e) {
                                 stokbarang=0;
-                                System.out.println("Notifikasi : "+e);
+                                System.out.println("Notifikasi : Stok Gudang Barang Kosong 1 "+e);
                             }finally{
                                 if(rsstok != null){
                                     rsstok.close();
@@ -845,7 +845,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                             }                                
                         } catch (Exception e) {
                             stokbarang=0;
-                            System.out.println("Notifikasi : "+e);
+                            System.out.println("Notifikasi : Stok Gudang Barang Kosong 2 "+e);
                         }finally{
                             if(rsstok != null){
                                 rsstok.close();
@@ -1087,7 +1087,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
                     }
                 } catch (Exception e) {
                     stokbarang=0;
-                    System.out.println("Notifikasi : "+e);
+                    System.out.println("Notifikasi : Stok Gudang Barang Kosong 3 "+e);
                 }finally{
                     if(rsstok != null){
                         rsstok.close();
@@ -1363,7 +1363,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
                     }
                 }              
             }catch(Exception e){
-                System.out.println("Notifikasi : "+e);
+                System.out.println("Notifikasi : bermasalah di modul tampil obat 1 - "+e);
             }finally{
                 if(rsobat != null){
                     rsobat.close();
@@ -1378,7 +1378,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
                 }
             }
         } catch (Exception e) {
-            System.out.println("Notifikasi : "+e);
+            System.out.println("Notifikasi : bermasalah di modul tampil obat 2 - "+e);
         }            
     }
 
