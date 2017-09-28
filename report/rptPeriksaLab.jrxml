@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="522" leftMargin="56" rightMargin="17" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.1269722013523678"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="noperiksa" class="java.lang.String"/>
@@ -78,33 +78,33 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
-		<band splitType="Stretch"/>
+		<band/>
 	</background>
 	<title>
-		<band height="221" splitType="Stretch">
+		<band height="221">
 			<textField>
-				<reportElement x="2" y="14" width="520" height="25" forecolor="#000000" backcolor="#00FF00"/>
+				<reportElement x="587" y="61" width="520" height="25" forecolor="#000000" backcolor="#00FF00"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="20" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{namars}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="68" width="520" height="14"/>
+				<reportElement x="587" y="115" width="520" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA["E-mail : "+$P{emailrs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="55" width="520" height="14"/>
+				<reportElement x="587" y="102" width="520" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="9"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{kontakrs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="42" width="520" height="14"/>
+				<reportElement x="587" y="89" width="520" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="9"/>
 				</textElement>
@@ -342,11 +342,11 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{kamar}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="FillFrame" onErrorType="Blank">
-				<reportElement x="0" y="15" width="67" height="67"/>
+				<reportElement x="585" y="62" width="67" height="67"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<line>
-				<reportElement x="0" y="82" width="522" height="1"/>
+				<reportElement x="587" y="129" width="522" height="1"/>
 				<graphicElement>
 					<pen lineWidth="2.25" lineStyle="Double"/>
 				</graphicElement>
@@ -437,9 +437,9 @@
 		</band>
 	</title>
 	<detail>
-		<band height="14" splitType="Stretch">
+		<band height="14">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3" y="1" width="131" height="13"/>
+				<reportElement stretchType="RelativeToTallestObject" x="5" y="1" width="125" height="13"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
@@ -455,14 +455,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{temp2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="217" y="1" width="75" height="13"/>
+				<reportElement stretchType="RelativeToTallestObject" x="220" y="1" width="70" height="13"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{temp3}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="293" y="1" width="153" height="13"/>
+				<reportElement stretchType="RelativeToTallestObject" x="296" y="1" width="148" height="13"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
@@ -512,8 +512,8 @@
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="135" y="1" width="81" height="13" forecolor="#0000FF">
-					<printWhenExpression><![CDATA[($F{temp5}.toLowerCase().equals("l") ? 
+				<reportElement stretchType="RelativeToTallestObject" x="138" y="1" width="75" height="13" forecolor="#0000FF">
+					<printWhenExpression><![CDATA[($F{temp5}.toLowerCase().equals("l") ?
   Boolean.TRUE:Boolean.FALSE)]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
@@ -522,8 +522,8 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{temp2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="135" y="1" width="81" height="13" forecolor="#FF0000">
-					<printWhenExpression><![CDATA[($F{temp5}.toLowerCase().equals("h") ? 
+				<reportElement stretchType="RelativeToTallestObject" x="138" y="1" width="75" height="13" forecolor="#FF0000">
+					<printWhenExpression><![CDATA[($F{temp5}.toLowerCase().equals("h") ?
   Boolean.TRUE:Boolean.FALSE)]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
@@ -534,7 +534,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band splitType="Stretch"/>
+		<band/>
 	</columnFooter>
 	<summary>
 		<band height="91">
