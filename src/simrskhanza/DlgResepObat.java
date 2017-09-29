@@ -693,7 +693,11 @@ public final class DlgResepObat extends javax.swing.JDialog {
                 });
             }
             Sequel.AutoComitTrue();
-            Map<String, Object> param = new HashMap<>();  
+            Map<String, Object> param = new HashMap<>(); 
+                param.put("noperiksa",TNoRw.getText());
+                param.put("namapasien",TPasien.getText());
+                param.put("noresep",NoResep.getText());
+                
                 param.put("namars",var.getnamars());
                 param.put("alamatrs",var.getalamatrs());
                 param.put("kotars",var.getkabupatenrs());
@@ -701,8 +705,26 @@ public final class DlgResepObat extends javax.swing.JDialog {
                 param.put("kontakrs",var.getkontakrs());
                 param.put("emailrs",var.getemailrs());   
                 param.put("logo",Sequel.cariGambar("select logo from setting")); 
-            Valid.MyReport2("rptResep.jrxml","report","::[ Transaksi Pembelian Barang ]::",
-                "select no, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10, temp11, temp12, temp13, temp14 from temporary order by no asc",param);
+
+                
+                Valid.MyReport2("rptResep.jrxml","report","::[ Daftar Resep Obat ]::",
+                "select resep_obat.no_resep,resep_obat.tgl_perawatan,"+
+                "resep_obat.no_rawat,"+
+                "detail_pemberian_obat.h_beli,"+
+                "detail_pemberian_obat.jml,"+
+                "detail_pemberian_obat.total,"+
+                "databarang.nama_brng,"+
+                "dokter.nm_dokter,"+
+                "kodesatuan.satuan "+
+                "FROM resep_obat "+
+                "INNER JOIN detail_pemberian_obat ON resep_obat.no_rawat = detail_pemberian_obat.no_rawat "+
+                "INNER JOIN databarang ON detail_pemberian_obat.kode_brng = databarang.kode_brng "+
+                "INNER JOIN dokter ON resep_obat.kd_dokter = dokter.kd_dokter "+
+                "INNER JOIN kodesatuan ON databarang.kode_sat = kodesatuan.kode_sat "+
+                "WHERE resep_obat.no_resep = '2017000010'",param);
+
+                /* Valid.MyReport2("rptResep.jrxml","report","::[ Daftar Resep Obat ]::",
+                "select no, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10, temp11, temp12, temp13, temp14 from temporary order by no asc",param);*/
         }
         this.setCursor(Cursor.getDefaultCursor());
 }//GEN-LAST:event_BtnPrintActionPerformed
