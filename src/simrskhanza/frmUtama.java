@@ -5106,7 +5106,7 @@ public class frmUtama extends javax.swing.JFrame {
                     lblUser.setText("Log Out");   
                 }
             } catch (Exception e) {
-                System.out.println("Notifikasi : "+e);
+                System.out.println("Notifikasi : Gagal Proses Login - "+e);
             }
         }
     }//GEN-LAST:event_BtnLoginActionPerformed
@@ -6420,7 +6420,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 penggajian.loadURL("http://" +prop.getProperty("HOST")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"penggajian/login.php?act=login&usere=paijo&passwordte=mumet");
             }            
         } catch (Exception ex) {
-            System.out.println("Notifikasi : "+ex);
+            System.out.println("Notifikasi : Gagal menampilkan web HR - "+ex);
         }
         
         penggajian.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
@@ -7547,7 +7547,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             Runtime.getRuntime().exec("java -jar anjunganmandiri.jar");
             this.setCursor(Cursor.getDefaultCursor());
         } catch (Exception e) {
-            System.out.print("Notifikasi : "+e);
+            System.out.print("Notifikasi : Gagal menampilkan anjungan informasi - "+e);
         } 
     }//GEN-LAST:event_MnAnjunganActionPerformed
 
@@ -7557,7 +7557,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             Runtime.getRuntime().exec("java -jar antrianloket.jar");
             this.setCursor(Cursor.getDefaultCursor());
         } catch (Exception e) {
-            System.out.print("Notifikasi : "+e);
+            System.out.print("Notifikasi : Gagal menampilkan antrian loket - "+e);
         } 
     }//GEN-LAST:event_MnRekapHadir3ActionPerformed
 
@@ -7567,7 +7567,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             Runtime.getRuntime().exec("java -jar antrianpoli.jar");
             this.setCursor(Cursor.getDefaultCursor());
         } catch (Exception e) {
-            System.out.print("Notifikasi : "+e);
+            System.out.print("Notifikasi : Gagal menampilkan antrian poli - "+e);
         } 
     }//GEN-LAST:event_MnRekapHadir4ActionPerformed
 
@@ -7611,7 +7611,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         try {
             retensi.loadURL("http://" +prop.getProperty("HOST")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"medrec/login.php?act=login&usere=admin&passwordte=akusayangsamakamu");                    
         } catch (Exception ex) {
-            System.out.println("Notifikasi : "+ex);
+            System.out.println("Notifikasi : Gagal menampilkan web retensi - "+ex);
         }
         
         retensi.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
@@ -8219,7 +8219,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 try {
                     inacbgklaim.loadURL("http://"+prop.getProperty("HOST")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"inacbg/login.php?act=login&usere=admin&passwordte=akusayangsamakamu&page=KlaimBaruOtomatis&codernik="+coder_nik);                    
                 } catch (Exception ex) {
-                    System.out.println("Notifikasi : "+ex);
+                    System.out.println("Notifikasi : Gagal menampilkan INACBG Klaim Otomatis - "+ex);
                 }
 
                 inacbgklaim.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
@@ -8253,7 +8253,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 try {
                     inacbgklaim.loadURL("http://"+prop.getProperty("HOST")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"inacbg/login.php?act=login&usere=admin&passwordte=akusayangsamakamu&page=KlaimBaruManual&codernik="+coder_nik);                    
                 } catch (Exception ex) {
-                    System.out.println("Notifikasi : "+ex);
+                    System.out.println("Notifikasi : Gagal menampilkan INACBG Klaim Manual - "+ex);
                 }
 
                 inacbgklaim.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
@@ -8290,7 +8290,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         try {
             Hybrid.loadURL("http://"+prop.getProperty("HOST")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"monitoringberkas/login.php?act=login&usere=admin&passwordte=akusayangsamakamu");                    
         } catch (Exception ex) {
-            System.out.println("Notifikasi : "+ex);
+            System.out.println("Notifikasi : Gagal menampilkan Mutasi Berkas - "+ex);
         }
 
         Hybrid.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());

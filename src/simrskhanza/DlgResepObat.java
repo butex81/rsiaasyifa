@@ -706,7 +706,6 @@ public final class DlgResepObat extends javax.swing.JDialog {
                 param.put("emailrs",var.getemailrs());   
                 param.put("logo",Sequel.cariGambar("select logo from setting")); 
 
-                
                 Valid.MyReport2("rptResep.jrxml","report","::[ Daftar Resep Obat ]::",
                 "select resep_obat.no_resep,resep_obat.tgl_perawatan,"+
                 "resep_obat.no_rawat,"+
@@ -721,7 +720,7 @@ public final class DlgResepObat extends javax.swing.JDialog {
                 "INNER JOIN databarang ON detail_pemberian_obat.kode_brng = databarang.kode_brng "+
                 "INNER JOIN dokter ON resep_obat.kd_dokter = dokter.kd_dokter "+
                 "INNER JOIN kodesatuan ON databarang.kode_sat = kodesatuan.kode_sat "+
-                "WHERE resep_obat.no_resep = '2017000010'",param);
+                "WHERE resep_obat.no_resep = '"+NoResep.getText()+"'",param);
 
                 /* Valid.MyReport2("rptResep.jrxml","report","::[ Daftar Resep Obat ]::",
                 "select no, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10, temp11, temp12, temp13, temp14 from temporary order by no asc",param);*/

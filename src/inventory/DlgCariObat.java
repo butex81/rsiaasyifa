@@ -753,7 +753,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                             }
                             if(stokbarang<y){
                                 JOptionPane.showMessageDialog(rootPane,"Maaf stok tidak mencukupi..!!");
-                                tbObat.setValueAt("",tbObat.getSelectedRow(),1);
+//                                tbObat.setValueAt("",tbObat.getSelectedRow(),1);
                             }
                         } catch (Exception e) {
                             tbObat.setValueAt(0,tbObat.getSelectedRow(),10);
@@ -864,7 +864,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                         }
                         if(stokbarang<y){
                             JOptionPane.showMessageDialog(rootPane,"Maaf stok tidak mencukupi..!!");
-                            tbObat.setValueAt("",tbObat.getSelectedRow(),1);
+//                            tbObat.setValueAt("",tbObat.getSelectedRow(),1);
                         }
                         
                         try {
