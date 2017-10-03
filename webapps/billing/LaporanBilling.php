@@ -10,6 +10,7 @@
     <?php
         $petugas = str_replace("_"," ",$_GET['petugas']); 
         $tanggal = str_replace("_"," ",$_GET['tanggal']); 
+		$kd_asuransi = str_replace("_"," ",$_GET['kd_pj']);
         reportsqlinjection();   
         $nonota= str_replace(": ","",getOne("select temp2 from temporary_bayar_ralan where temp1='No.Nota'"));
         $norawat=getOne("select no_rawat from nota_jalan where no_nota='$nonota'");
@@ -47,7 +48,16 @@
 				</td>
             </tr>
             ";  $z=1;
-                while($inapdrpasien = mysql_fetch_array($hasil)) {
+                $hasil9=bukaquery("select kd_pj, png_jawab from penjab where kd_pj='".$kd_asuransi."'");
+                while($inapdrpasien = mysql_fetch_array($hasil9)) {
+                    echo "<tr class='isi12' padding='0'>
+                       <td padding='0' width='30%'><font color='000000' size='1'  face='Tahoma'>Jenis Bayar</td> 
+                       <td padding='0' width='40%' colspan='6'><font color='000000' size='1'  face='Tahoma'>:&nbsp;$inapdrpasien[1]</font></td>   
+                      </tr>"; 			                    
+                } 
+                   
+
+			while($inapdrpasien = mysql_fetch_array($hasil)) {
                    if($z<=6){
                       echo "<tr class='isi12' padding='0'>
                                 <td padding='0' width='30%'><font color='000000' size='1'  face='Tahoma'>".str_replace("  ","&nbsp;&nbsp;",$inapdrpasien[0])."</td> 
@@ -63,11 +73,11 @@
                        <td padding='0' width='30%'><font color='000000' size='1'  face='Tahoma'>Dokter</td> 
                        <td padding='0' width='40%' colspan='6'>:";
                        while($inapdrpasien = mysql_fetch_array($hasil)) {
-			  echo "<font color='000000' size='1'  face='Tahoma'>&nbsp;$inapdrpasien[0]</font></br>";				                    
+			    echo "<font color='000000' size='1'  face='Tahoma'>&nbsp;$inapdrpasien[0]</font></br>";				                    
                        }
                   echo "</td>              
                       </tr>";   
-                   
+
                 $hasil2=bukaquery("select temp1,temp2,temp3,temp7 from temporary_bayar_ralan where temp8='Registrasi' order by no asc");
                 while($inapdrpasien = mysql_fetch_array($hasil2)) {
                     echo "<tr class='isi12' padding='0'>
