@@ -61,6 +61,7 @@
 	<variable name="total_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{total}]]></variableExpression>
 	</variable>
+	<variable name="grand_total" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -227,8 +228,8 @@
 				</textElement>
 				<text><![CDATA[Total        Rp.  ]]></text>
 			</staticText>
-			<textField pattern="#,##0">
-				<reportElement x="75" y="4" width="100" height="15"/>
+			<textField evaluationTime="Auto" pattern="#,##0">
+				<reportElement x="75" y="4" width="90" height="15"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" isBold="true"/>
 				</textElement>
