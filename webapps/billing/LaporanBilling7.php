@@ -107,7 +107,7 @@
                                     <tr>
                                        <td>&nbsp;</td>
                                        <td>&nbsp;</td>
-                                       <td align='right'><font color='333333' size='3'  face='Tahoma'>Adm. Keuangan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></td>
+                                       <td align='right'><font color='333333' size='3'  face='Tahoma'>Kasir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></td>
                                     </tr> 
                                 </table>
                             </td>

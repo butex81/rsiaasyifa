@@ -40,7 +40,7 @@
                                     </font> 
 				</center>
 			    </td>
-			    <td  width='20%'><font color='000000' size='2'  face='Tahoma'>$carabayar</font></td>
+			    <!-- td  width='20%'><font color='000000' size='2'  face='Tahoma'>$carabayar</font></td -->
                         </tr>
                   </table>
             </td>
@@ -52,7 +52,12 @@
               </td>
             </tr>
             ";  $z=1;
-                while($inapdrpasien = mysql_fetch_array($hasil)) {
+                    echo "<tr class='isi12' padding='0'>
+                       <td padding='0'><font color='000000' size='1'  face='Tahoma'>Jenis Bayar</td> 
+                       <td padding='0' colspan='6'><font color='000000' size='1'  face='Tahoma'>:&nbsp;$carabayar</font></td>   
+                      </tr>"; 			                    
+
+			while($inapdrpasien = mysql_fetch_array($hasil)) {
                    if($z<=6){
                       echo "<tr class='isi12' padding='0'>
                                 <td padding='0' width='18%'><font color='111111' size='1'  face='Tahoma'>".str_replace("  ","&nbsp;&nbsp;",$inapdrpasien[0])."</td> 
