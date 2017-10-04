@@ -587,7 +587,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
             tbDokter.requestFocus();
         }else{
             if(var.getkode().equals("Admin Utama")){
-                i= JOptionPane.showConfirmDialog(rootPane,"Eeiiiiiits, udah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
+                i= JOptionPane.showConfirmDialog(rootPane,"Sudah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
                 if (i == JOptionPane.YES_OPTION) {
                     Sequel.AutoComitFalse();
                     ttlhpp=0;ttljual=0;
@@ -632,7 +632,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                     JOptionPane.showMessageDialog(rootPane,"Data billing sudah terverifikasi, data tidak boleh dihapus.\nSilahkan hubungi bagian kasir/keuangan ..!!");
                     TCari.requestFocus();
                 }else{
-                    i= JOptionPane.showConfirmDialog(rootPane,"Eeiiiiiits, udah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
+                    i= JOptionPane.showConfirmDialog(rootPane,"Sudah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
                     if (i == JOptionPane.YES_OPTION) {
                         Sequel.AutoComitFalse();
                         ttlhpp=0;ttljual=0;

@@ -239,7 +239,7 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     if(KdPeriksa.getText().equals("")||NmPeriksa.getText().equals("")){
         Valid.textKosong(KdPeriksa,"Pemeriksaan");
     }else{
-        int reply = JOptionPane.showConfirmDialog(rootPane,"Eeiiiiiits, udah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
+        int reply = JOptionPane.showConfirmDialog(rootPane,"Sudah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
         if(reply == JOptionPane.YES_OPTION) {
              int row=tbKamar.getRowCount();
              if(row>-1){

@@ -2221,7 +2221,7 @@ public class DlgBilingRalan extends javax.swing.JDialog {
                         Sequel.menyimpan("temporary_bayar_ralan","'0','TOTAL TAGIHAN',':','','','','','"+TtlSemua.getText()+"','Tagihan','','','','','','','','',''","Tagihan"); 
                         Sequel.menyimpan("temporary_bayar_ralan","'0','PPN',':','','','','','"+Valid.SetAngka(besarppn)+"','Tagihan','','','','','','','','',''","Tagihan"); 
                         Sequel.menyimpan("temporary_bayar_ralan","'0','TAGIHAN + PPN',':','','','','','"+TagihanPPn.getText()+"','Tagihan','','','','','','','','',''","Tagihan"); 
-                        Sequel.menyimpan("temporary_bayar_ralan","'0','UANG MUKA',':','','','','','"+Valid.SetAngka(bayar)+"','Tagihan','','','','','','','','',''","Tagihan"); 
+                        Sequel.menyimpan("temporary_bayar_ralan","'0','CASH DARI PASIEN',':','','','','','"+Valid.SetAngka(bayar)+"','Tagihan','','','','','','','','',''","Tagihan"); 
                         Sequel.menyimpan("temporary_bayar_ralan","'0','SISA PIUTANG',':','','','','','"+Valid.SetAngka(piutang)+"','Tagihan','','','','','','','','',''","Tagihan");                                           
                     }
 
@@ -4646,7 +4646,7 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             TKembali.setText(Valid.SetAngka3(kekurangan));            
         }else{
             kekurangan=(tagihanppn-(bayar+besarppn)-piutang)* -1;
-            jLabel5.setText("Uang Muka : Rp.");
+            jLabel5.setText("Cash dari Pasien : Rp.");
             if(kekurangan>0){
                 jLabel6.setText("Kelebihan : Rp.");
             }else{

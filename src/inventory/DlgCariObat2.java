@@ -655,7 +655,8 @@ public final class DlgCariObat2 extends javax.swing.JDialog {
 }//GEN-LAST:event_tbObatMouseClicked
 
     private void tbObatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbObatKeyPressed
-        if(var.getkdbangsal().equals("")){
+//        if(var.getkdbangsal().equals("")){
+        if(kdgudang.getText().equals("")){
             Valid.textKosong(TCari,"Lokasi");                              
         }else if(tbObat.getRowCount()!=0){
             if(evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -737,7 +738,7 @@ public final class DlgCariObat2 extends javax.swing.JDialog {
                 }
             }else if(evt.getKeyCode()==KeyEvent.VK_SHIFT){
                 TCari.requestFocus();
-            }else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            }else if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
                 i=tbObat.getSelectedColumn();
                 if(i==2){
                     try {                        
@@ -819,7 +820,8 @@ public final class DlgCariObat2 extends javax.swing.JDialog {
 private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
         if(TNoRw.getText().trim().equals("")){
             Valid.textKosong(TCari,"Data");
-        }else if(var.getkdbangsal().equals("")){
+//        }else if(var.getkdbangsal().equals("")){
+        }else if(kdgudang.getText().equals("")){            
             Valid.textKosong(TCari,"Lokasi");                              
         }else{
             try {  
@@ -1009,8 +1011,9 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     }//GEN-LAST:event_kelasKeyPressed
 
     private void ppStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppStokActionPerformed
-        if(var.getkdbangsal().equals("")){
-            Valid.textKosong(TCari,"Lokasi");                              
+//        if(var.getkdbangsal().equals("")){
+        if(kdgudang.getText().equals("")){            
+            Valid.textKosong(TCari,"Lokasi");            
         }else{
             for(i=0;i<tbObat.getRowCount();i++){
                 try {

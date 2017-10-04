@@ -745,7 +745,7 @@ public class DlgPenjualan extends javax.swing.JDialog {
         panelisi3.add(Jenisjual);
         Jenisjual.setBounds(239, 70, 95, 23);
 
-        label18.setText("Catatan :");
+        label18.setText("Nama Pasien :");
         label18.setName("label18"); // NOI18N
         label18.setPreferredSize(new java.awt.Dimension(60, 23));
         panelisi3.add(label18);
@@ -954,7 +954,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
             }else{
                 status="Belum Dibayar";
             }
-            int reply = JOptionPane.showConfirmDialog(rootPane,"udah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(rootPane,"Sudah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 if(Sequel.menyimpantf("penjualan","?,?,?,?,?,?,?,?,?,?,?","No.Nota",11,new String[]{
                     NoNota.getText(),Valid.SetTgl(Tgl.getSelectedItem()+""),kdptg.getText(),kdmem.getText(),nmmem.getText(),
