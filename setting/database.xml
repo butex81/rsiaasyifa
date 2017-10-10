@@ -3,10 +3,10 @@
 <properties>
     <comment>KhanzaHMS</comment>
     <entry key="HOST">localhost</entry>
-    <entry key="DATABASE">sik_khanza</entry>
+    <entry key="DATABASE">sik_sample</entry>
     <entry key="PORT">3306</entry>
-    <entry key="USER">simrs</entry>
-    <entry key="PAS">212simrsadmin</entry>
+    <entry key="USER">root</entry>
+    <entry key="PAS"></entry>
     <entry key="CARICEPAT">nonaktif</entry>
     <entry key="HYBRIDWEB">webapps</entry>
     <entry key="ANTRIAN">sender</entry>

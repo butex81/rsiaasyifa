@@ -178,6 +178,7 @@ public final class DlgResepObat extends javax.swing.JDialog {
         cmbMnt = new widget.ComboBox();
         cmbDtk = new widget.ComboBox();
         ChkRM = new widget.CekBox();
+        NoTransObat = new widget.TextBox();
         ChkInput = new widget.CekBox();
 
         Popup2.setName("Popup2"); // NOI18N
@@ -368,7 +369,7 @@ public final class DlgResepObat extends javax.swing.JDialog {
 
         DTPCari1.setEditable(false);
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-02-2017" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2017" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -383,7 +384,7 @@ public final class DlgResepObat extends javax.swing.JDialog {
 
         DTPCari2.setEditable(false);
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-02-2017" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2017" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -514,7 +515,7 @@ public final class DlgResepObat extends javax.swing.JDialog {
 
         DTPBeri.setEditable(false);
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-02-2017" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-10-2017" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -577,6 +578,17 @@ public final class DlgResepObat extends javax.swing.JDialog {
         FormInput.add(ChkRM);
         ChkRM.setBounds(701, 42, 23, 23);
 
+        NoTransObat.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        NoTransObat.setHighlighter(null);
+        NoTransObat.setName("NoTransObat"); // NOI18N
+        NoTransObat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NoTransObatKeyPressed(evt);
+            }
+        });
+        FormInput.add(NoTransObat);
+        NoTransObat.setBounds(730, 12, 110, 23);
+
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
         ChkInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -615,10 +627,10 @@ public final class DlgResepObat extends javax.swing.JDialog {
         }else if(NoResep.getText().trim().equals("")){
             Valid.textKosong(NoResep,"No.Resep");
         }else{
-            Sequel.menyimpan("resep_obat","?,?,?,?,?","Nomer Resep",5,new String[]{
+            Sequel.menyimpan("resep_obat","?,?,?,?,?,?","Nomer Resep",6,new String[]{
                 NoResep.getText(),Valid.SetTgl(DTPBeri.getSelectedItem()+""),
                 cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
-                TNoRw.getText(),KdDokter.getText()
+                TNoRw.getText(),KdDokter.getText(),NoTransObat.getText()
             });
             tampil();
             emptTeks();
@@ -894,6 +906,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_ppResepObatActionPerformed
 
+    private void NoTransObatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoTransObatKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NoTransObatKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -928,6 +944,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label LCount;
     private widget.TextBox NmDokter;
     private widget.TextBox NoResep;
+    private widget.TextBox NoTransObat;
     private javax.swing.JPanel PanelInput;
     private javax.swing.JPopupMenu Popup2;
     private widget.ScrollPane Scroll;
@@ -958,7 +975,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.tabelKosong(tabMode);
         try{  
             ps=koneksi.prepareStatement("select resep_obat.no_resep,resep_obat.tgl_perawatan,resep_obat.jam,"+
-                    " resep_obat.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,resep_obat.kd_dokter,dokter.nm_dokter "+
+                    " resep_obat.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,resep_obat.kd_dokter,dokter.nm_dokter,resep_obat.no_trans_obat "+
                     " from resep_obat inner join reg_periksa inner join pasien inner join dokter on resep_obat.no_rawat=reg_periksa.no_rawat  "+
                     " and reg_periksa.no_rkm_medis=pasien.no_rkm_medis and resep_obat.kd_dokter=dokter.kd_dokter where "+
                     " resep_obat.tgl_perawatan between ? and ? and resep_obat.no_resep like ? or "+
@@ -994,12 +1011,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     ps2=koneksi.prepareStatement("select databarang.kode_brng,databarang.nama_brng,detail_pemberian_obat.jml,"+
                         "detail_pemberian_obat.biaya_obat,detail_pemberian_obat.embalase,detail_pemberian_obat.tuslah,detail_pemberian_obat.total from "+
                         "detail_pemberian_obat inner join databarang on detail_pemberian_obat.kode_brng=databarang.kode_brng "+
-                        "where detail_pemberian_obat.tgl_perawatan=? and detail_pemberian_obat.jam=? and detail_pemberian_obat.no_rawat=? "+
+                        "where detail_pemberian_obat.tgl_perawatan=? and detail_pemberian_obat.jam=? and detail_pemberian_obat.no_rawat=? and detail_pemberian_obat.no_trans_obat=? "+
                         "order by databarang.kode_brng");
                     try {
                         ps2.setString(1,rs.getString("tgl_perawatan"));
                         ps2.setString(2,rs.getString("jam"));
                         ps2.setString(3,rs.getString("no_rawat"));
+                        ps2.setString(4,rs.getString("no_trans_obat"));
                         rs2=ps2.executeQuery();
                         total=0;
                         while(rs2.next()){
@@ -1014,7 +1032,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         }
                         tabMode.addRow(new String[]{"","","Total Biaya Resep = "+ Valid.SetAngka(total),""}); 
                     } catch (Exception e) {
-                        System.out.println("Notifikasi : "+e);
+                        System.out.println("Notifikasi : Error dalam menampilkan data obat - "+e);
                     } finally{
                         if(rs2!=null){
                             rs2.close();
@@ -1030,7 +1048,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 }
                 LCount.setText(""+rs.getRow());
             } catch(Exception ex){
-                System.out.println("Notifikasi : "+ex);
+                System.out.println("Notifikasi : error dalam menampilkan data resep - "+ex);
             } finally{
                 if(rs!=null){
                     rs.close();
@@ -1040,7 +1058,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 }
             }                
         }catch(SQLException e){
-            System.out.println("Notifikasi : "+e);
+            System.out.println("Notifikasi : error dalam menampilkan data - "+e);
         }        
     }
 
@@ -1065,7 +1083,11 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             TPasien.setText(tbResep.getValueAt(tbResep.getSelectedRow(),2).toString().replaceAll(TNoRw.getText()+" ",""));
         }
     }
-   
+    
+    public void setNoTrans(String notrans) {
+        NoTransObat.setText(notrans);
+    }
+    
     public void setNoRm(String norwt,Date tgl1,Date tgl2,String jam,String menit,String detik) {
         TNoRw.setText(norwt);
         Sequel.cariIsi("select concat(pasien.no_rkm_medis,' ',pasien.nm_pasien) from reg_periksa inner join pasien "+
