@@ -371,6 +371,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
         Popup2 = new javax.swing.JPopupMenu();
         ppResepObat = new javax.swing.JMenuItem();
         ppNoRawat = new javax.swing.JMenuItem();
+        ppNota = new javax.swing.JMenuItem();
         THBeli = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
@@ -466,6 +467,24 @@ public class DlgPemberianObat extends javax.swing.JDialog {
             }
         });
         Popup2.add(ppNoRawat);
+
+        ppNota.setBackground(new java.awt.Color(255, 255, 255));
+        ppNota.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppNota.setForeground(new java.awt.Color(102, 51, 0));
+        ppNota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppNota.setText("Cetak Nota Resep Obat");
+        ppNota.setHideActionText(true);
+        ppNota.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppNota.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppNota.setIconTextGap(8);
+        ppNota.setName("ppNota"); // NOI18N
+        ppNota.setPreferredSize(new java.awt.Dimension(200, 25));
+        ppNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppNotaActionPerformed(evt);
+            }
+        });
+        Popup2.add(ppNota);
 
         THBeli.setText("0");
         THBeli.setHighlighter(null);
@@ -659,7 +678,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
 
         DTPCari1.setEditable(false);
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-09-2017" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-10-2017" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -673,7 +692,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
 
         DTPCari2.setEditable(false);
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-09-2017" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-10-2017" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -813,7 +832,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
 
         DTPBeri.setEditable(false);
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-09-2017" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-10-2017" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -1277,6 +1296,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
         DTPBeri.setDate(new Date());
         TNoRw.requestFocus();
         ChkInput.setSelected(true);
+        ChkJln.setSelected(true);
         isForm(); 
 }//GEN-LAST:event_BtnBatalActionPerformed
 
@@ -1434,6 +1454,8 @@ public class DlgPemberianObat extends javax.swing.JDialog {
                 param.put("propinsirs",var.getpropinsirs());
                 param.put("kontakrs",var.getkontakrs());
                 param.put("emailrs",var.getemailrs()); 
+                param.put("waktu",""); 
+                param.put("judul","Rekap Nota Resep Obat"); 
             param.put("logo",Sequel.cariGambar("select logo from setting")); 
             if(!TCariPasien.getText().equals("")){
                pas=" and reg_periksa.no_rkm_medis='"+TCariPasien.getText()+"' "; 
@@ -1442,18 +1464,20 @@ public class DlgPemberianObat extends javax.swing.JDialog {
             Valid.MyReport("rptBrObt.jrxml","report","::[ Rekam Data Pemberian Obat (UMUM) ]::","select detail_pemberian_obat.tgl_perawatan,detail_pemberian_obat.jam,"+
                    "detail_pemberian_obat.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,"+
                    "detail_pemberian_obat.kode_brng,databarang.nama_brng,detail_pemberian_obat.embalase,detail_pemberian_obat.tuslah,"+
-                   "detail_pemberian_obat.jml,detail_pemberian_obat.biaya_obat,detail_pemberian_obat.total "+
-                   "from detail_pemberian_obat inner join reg_periksa inner join pasien inner join databarang "+
+                   "detail_pemberian_obat.jml,detail_pemberian_obat.biaya_obat,detail_pemberian_obat.total, "+
+                   "kodesatuan.satuan "+
+                   "from detail_pemberian_obat inner join reg_periksa inner join pasien inner join databarang inner join kodesatuan "+
                    "on detail_pemberian_obat.no_rawat=reg_periksa.no_rawat "+
                    "and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                    "and detail_pemberian_obat.kode_brng=databarang.kode_brng "+
+                   "and databarang.kode_sat = kodesatuan.kode_sat "+
                    "where  "+tgl+"and tgl_perawatan like '%"+TCari.getText().trim()+"%' or "+
                    tgl+"and detail_pemberian_obat.no_rawat like '%"+TCari.getText().trim()+"%' or "+
                    tgl+"and reg_periksa.no_rkm_medis like '%"+TCari.getText().trim()+"%' or "+
                    tgl+"and pasien.nm_pasien like '%"+TCari.getText().trim()+"%' or "+
                    tgl+"and detail_pemberian_obat.kode_brng like '%"+TCari.getText().trim()+"%' or "+
                    tgl+"and databarang.nama_brng like '%"+TCari.getText().trim()+"%' "+
-                   "order by detail_pemberian_obat.tgl_perawatan",param);
+                   "order by detail_pemberian_obat.tgl_perawatan",param);                                   
         }
         this.setCursor(Cursor.getDefaultCursor());
 }//GEN-LAST:event_BtnPrintActionPerformed
@@ -1528,6 +1552,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
     private void tbPemberianObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPemberianObatMouseClicked
         if(tabModePO.getRowCount()!=0){
             try {
+                ChkJln.setSelected(false);
                 getData();
             } catch (java.lang.NullPointerException e) {
             }
@@ -1538,6 +1563,7 @@ public class DlgPemberianObat extends javax.swing.JDialog {
         if(tabModePO.getRowCount()!=0){
             if((evt.getKeyCode()==KeyEvent.VK_ENTER)||(evt.getKeyCode()==KeyEvent.VK_UP)||(evt.getKeyCode()==KeyEvent.VK_DOWN)){
                 try {
+                    ChkJln.setSelected(false);
                     getData();
                 } catch (java.lang.NullPointerException e) {
                 }
@@ -1852,7 +1878,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 param.put("propinsirs",var.getpropinsirs());
                 param.put("kontakrs",var.getkontakrs());
                 param.put("emailrs",var.getemailrs()); 
-            param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("logo",Sequel.cariGambar("select logo from setting")); 
             if(!TCariPasien.getText().equals("")){
                pas=" and reg_periksa.no_rkm_medis='"+TCariPasien.getText()+"' "; 
             }
@@ -1875,6 +1901,40 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_ppNoRawatActionPerformed
+
+    private void ppNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppNotaActionPerformed
+       this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        tampilPO();
+        if(tabModePO.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+            BtnBatal.requestFocus();
+        }else if(tabModePO.getRowCount()!=0){
+            Map<String, Object> param = new HashMap<>(); 
+                param.put("namars",var.getnamars());
+                param.put("alamatrs",var.getalamatrs());
+                param.put("kotars",var.getkabupatenrs());
+                param.put("propinsirs",var.getpropinsirs());
+                param.put("kontakrs",var.getkontakrs());
+                param.put("emailrs",var.getemailrs()); 
+                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("waktu",DTPBeri.getSelectedItem()+" / "+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem());
+                param.put("judul","NOTA RESEP OBAT");                 
+
+            Valid.MyReport("rptBrObt.jrxml","report","::[ Rekam Data Pemberian Obat (UMUM) ]::","select detail_pemberian_obat.tgl_perawatan,detail_pemberian_obat.jam,"+
+                   "detail_pemberian_obat.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,"+
+                   "detail_pemberian_obat.kode_brng,databarang.nama_brng,detail_pemberian_obat.embalase,detail_pemberian_obat.tuslah,"+
+                   "detail_pemberian_obat.jml,detail_pemberian_obat.biaya_obat,detail_pemberian_obat.total, "+
+                   "kodesatuan.satuan "+
+                   "from detail_pemberian_obat inner join reg_periksa inner join pasien inner join databarang inner join kodesatuan "+
+                   "on detail_pemberian_obat.no_rawat=reg_periksa.no_rawat "+
+                   "and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                   "and detail_pemberian_obat.kode_brng=databarang.kode_brng "+
+                   "and databarang.kode_sat = kodesatuan.kode_sat "+
+                   "where  detail_pemberian_obat.tgl_perawatan = '"+Valid.SetTgl(DTPBeri.getSelectedItem()+"")+"' "+
+                   "and detail_pemberian_obat.jam = '"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"' "+
+                   "and detail_pemberian_obat.no_rawat = '"+TNoRw.getText()+"' ",param);            
+        }
+        this.setCursor(Cursor.getDefaultCursor());    }//GEN-LAST:event_ppNotaActionPerformed
 
     /**
     * @param args the command line arguments
@@ -1953,6 +2013,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.panelisi panelGlass8;
     private widget.panelisi panelGlass9;
     private javax.swing.JMenuItem ppNoRawat;
+    private javax.swing.JMenuItem ppNota;
     private javax.swing.JMenuItem ppResepObat;
     private widget.Table tbPemberianObat;
     // End of variables declaration//GEN-END:variables

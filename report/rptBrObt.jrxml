@@ -10,6 +10,8 @@
 	<parameter name="kontakrs" class="java.lang.String"/>
 	<parameter name="emailrs" class="java.lang.String"/>
 	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="waktu" class="java.lang.String"/>
+	<parameter name="judul" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select detail_pemberian_obat.tgl_perawatan,detail_pemberian_obat.jam,
  detail_pemberian_obat.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,
@@ -59,6 +61,7 @@ ORDER BY
 	<field name="total" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="satuan" class="java.lang.String"/>
 	<variable name="totalembalase" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{embalase}]]></variableExpression>
 	</variable>
@@ -68,22 +71,12 @@ ORDER BY
 	<variable name="totalbiaya" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{total}]]></variableExpression>
 	</variable>
-	<background>
-		<band/>
-	</background>
 	<title>
-		<band height="123">
-			<staticText>
-				<reportElement x="5" y="53" width="228" height="23"/>
-				<textElement textAlignment="Center" lineSpacing="Single">
-					<font fontName="Tahoma" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[DATA PEMBERIAN OBAT/BARANG/ALKES/PERLENGKAPAN]]></text>
-			</staticText>
+		<band height="124">
 			<textField>
 				<reportElement x="48" y="35" width="185" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
-					<font fontName="Tahoma" size="9"/>
+					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA["Telp : "+$P{kontakrs}+" /  E-mail : "+$P{emailrs}]]></textFieldExpression>
 			</textField>
@@ -97,7 +90,7 @@ ORDER BY
 			<textField>
 				<reportElement x="49" y="14" width="184" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
-					<font fontName="Tahoma" size="9"/>
+					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{alamatrs}]]></textFieldExpression>
 			</textField>
@@ -110,7 +103,7 @@ ORDER BY
 			<textField>
 				<reportElement x="49" y="25" width="184" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
-					<font fontName="Tahoma" size="9"/>
+					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{kotars}+", "+$P{propinsirs}]]></textFieldExpression>
 			</textField>
@@ -119,38 +112,49 @@ ORDER BY
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement mode="Opaque" x="5" y="86" width="77" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="5" y="92" width="77" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement verticalAlignment="Top" lineSpacing="Single">
 					<font fontName="Tahoma" size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[No.R.M/Nama Pasien]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="5" y="104" width="48" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="5" y="107" width="48" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement verticalAlignment="Top" lineSpacing="Single">
 					<font fontName="Tahoma" size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[No.Rawat]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="82" y="86" width="151" height="16"/>
+				<reportElement x="82" y="92" width="151" height="16"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[": "+$F{no_rkm_medis}+" / "+$F{nm_pasien}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="82" y="104" width="151" height="16"/>
+				<reportElement x="82" y="107" width="151" height="16"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[": "+$F{no_rawat}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="63" y="76" width="170" height="14"/>
+				<textElement textAlignment="Right" lineSpacing="Single">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{waktu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="49" width="233" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{judul}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
-	<pageHeader>
-		<band/>
-	</pageHeader>
 	<columnHeader>
 		<band height="18">
 			<staticText>
@@ -168,7 +172,7 @@ ORDER BY
 				<text><![CDATA[Nama Obat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="175" y="2" width="58" height="16" forecolor="#000000"/>
+				<reportElement mode="Opaque" x="165" y="2" width="58" height="16" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font fontName="Tahoma" size="8" isBold="false"/>
 				</textElement>
@@ -179,7 +183,7 @@ ORDER BY
 	<detail>
 		<band height="13">
 			<textField isStretchWithOverflow="true" pattern="###0">
-				<reportElement x="175" y="1" width="39" height="12"/>
+				<reportElement x="162" y="1" width="18" height="12"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -200,20 +204,14 @@ ORDER BY
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="223" y="0" width="100" height="20"/>
-				<textElement lineSpacing="Single"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{biaya_obat}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="220" y="0" width="100" height="20"/>
-				<textElement lineSpacing="Single"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{total}]]></textFieldExpression>
+				<reportElement x="180" y="1" width="53" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{satuan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band/>
-	</columnFooter>
 	<summary>
 		<band height="34">
 			<staticText>
