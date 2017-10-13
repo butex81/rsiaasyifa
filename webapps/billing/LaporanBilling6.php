@@ -9,9 +9,12 @@
 
     <?php
         reportsqlinjection();        
+        $norwt=str_replace("_"," ",$_GET['norawat']);
         $norawat  = "DP/".str_replace("_"," ",$_GET['norawat']); 
         $deposit  =str_replace("_"," ",$_GET['deposit']);
         $pasien   =str_replace("_"," ",$_GET['pasien']);
+
+
         $_sql = "select temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10, temp11, temp12, temp13, temp14 from temporary_bayar_ranap order by no asc";   
         $hasil=bukaquery($_sql);
         
@@ -55,7 +58,7 @@
                             <tr>
                                <td><font color='333333' size='3'  face='Tahoma'>Telah terima dari</font></td>
                                <td><font color='333333' size='3'  face='Tahoma'>:</font></td>
-                               <td><font color='333333' size='3'  face='Tahoma'>.............................</font></td>
+                               <td><font color='333333' size='3'  face='Tahoma'>".getOne("select p_jawab from reg_periksa where no_rawat='$norwt'")."</font></td>
                             </tr>
                             <tr valign='top'>
                                <td><font color='333333' size='3'  face='Tahoma'>Uang Sebanyak</font></td>
