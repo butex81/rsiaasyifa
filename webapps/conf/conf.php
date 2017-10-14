@@ -1,8 +1,8 @@
 <?php
 
     $db_hostname    ="localhost";
-    $db_username    ="root";
-    $db_password    ="";
+    $db_username    ="simrs";
+    $db_password    ="212simrsadmin";
     $db_name        ="sik";
 
     function host(){
