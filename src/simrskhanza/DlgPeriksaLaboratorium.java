@@ -1596,7 +1596,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         try {
             for(i=0;i<tbTarif.getRowCount();i++){ 
                 if(tbTarif.getValueAt(i,0).toString().equals("true")){
-                    tabMode.addRow(new Object[]{false,tbTarif.getValueAt(i,2).toString(),"","","","",""});
+                    tabMode.addRow(new Object[]{true,tbTarif.getValueAt(i,2).toString(),"","","","",""});
                     if(Jk.getText().equals("L")&&(rbDewasa.isSelected()==true)){
                         pstampil=koneksi.prepareStatement("select id_template, Pemeriksaan, satuan, nilai_rujukan_ld,biaya_item, "+
                                 "bagian_rs,bhp,bagian_perujuk,bagian_dokter,bagian_laborat,kso,menejemen "+
@@ -1606,7 +1606,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             rstampil=pstampil.executeQuery();
                             while(rstampil.next()){
                                 tabMode.addRow(new Object[]{
-                                    false,"   "+rstampil.getString("Pemeriksaan"),"",
+                                    true,"   "+rstampil.getString("Pemeriksaan"),"",
                                          rstampil.getString("satuan"),
                                          rstampil.getString("nilai_rujukan_ld"),"",
                                          rstampil.getString("id_template"),
@@ -1638,7 +1638,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             pstampil2.setString(1,tbTarif.getValueAt(i,1).toString());
                             rstampil=pstampil2.executeQuery();
                             while(rstampil.next()){
-                                tabMode.addRow(new Object[]{false,"   "+rstampil.getString("Pemeriksaan"),"",
+                                tabMode.addRow(new Object[]{true,"   "+rstampil.getString("Pemeriksaan"),"",
                                          rstampil.getString("satuan"),
                                          rstampil.getString("nilai_rujukan_la"),"",
                                          rstampil.getString("id_template"),
@@ -1670,7 +1670,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             pstampil3.setString(1,tbTarif.getValueAt(i,1).toString());
                             rstampil=pstampil3.executeQuery();
                             while(rstampil.next()){
-                                tabMode.addRow(new Object[]{false,"   "+rstampil.getString("Pemeriksaan"),"",
+                                tabMode.addRow(new Object[]{true,"   "+rstampil.getString("Pemeriksaan"),"",
                                          rstampil.getString("satuan"),
                                          rstampil.getString("nilai_rujukan_pd"),"",
                                          rstampil.getString("id_template"),
@@ -1702,7 +1702,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             pstampil4.setString(1,tbTarif.getValueAt(i,1).toString());
                             rstampil=pstampil4.executeQuery();
                             while(rstampil.next()){
-                                tabMode.addRow(new Object[]{false,"   "+rstampil.getString("Pemeriksaan"),"",
+                                tabMode.addRow(new Object[]{true,"   "+rstampil.getString("Pemeriksaan"),"",
                                          rstampil.getString("satuan"),
                                          rstampil.getString("nilai_rujukan_pa"),"",
                                          rstampil.getString("id_template"),

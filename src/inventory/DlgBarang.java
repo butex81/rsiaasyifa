@@ -2308,6 +2308,8 @@ private void KapasitasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     }
     
     public void tampil4(String NoRetur) {
+        panelisi2.setVisible(false);
+        ChkInput.setVisible(false);
         if(var.getform().equals("DlgReturJual")){
             Valid.tabelKosong(tabMode);
             try {
