@@ -1,11 +1,6 @@
 <?php
  include '../conf/conf.php';
-    header("Content-type: application/x-msdownload");
-    header("Content-Disposition: attachment; filename=LaporanRL32RawatDarurat.xls");
-    header("Pragma: no-cache");
-    header("Expires: 0");
-    print "$header\n$data";
-?>
+    
 <html>
     <body>
 

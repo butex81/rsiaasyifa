@@ -29,6 +29,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -450,6 +451,8 @@ public class DlgBarang extends javax.swing.JDialog {
         KdIF = new widget.TextBox();
         NmIF = new widget.TextBox();
         BtnIF = new widget.Button();
+        label39 = new widget.Label();
+        markup = new widget.TextBox();
         ChkInput = new widget.CekBox();
 
         Popup.setName("Popup"); // NOI18N
@@ -818,7 +821,7 @@ public class DlgBarang extends javax.swing.JDialog {
         label26.setName("label26"); // NOI18N
         label26.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label26);
-        label26.setBounds(-1, 222, 117, 23);
+        label26.setBounds(250, 220, 117, 23);
 
         kelas1.setName("kelas1"); // NOI18N
         kelas1.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -838,13 +841,13 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(kelas1);
-        kelas1.setBounds(117, 222, 110, 23);
+        kelas1.setBounds(370, 220, 110, 23);
 
         label28.setText("Hrg Rnp Kelas 2 : Rp.");
         label28.setName("label28"); // NOI18N
         label28.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label28);
-        label28.setBounds(230, 162, 139, 23);
+        label28.setBounds(530, 10, 139, 23);
 
         kelas2.setName("kelas2"); // NOI18N
         kelas2.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -864,7 +867,7 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(kelas2);
-        kelas2.setBounds(370, 162, 110, 23);
+        kelas2.setBounds(670, 10, 110, 23);
 
         label31.setText("Letak Barang :");
         label31.setName("label31"); // NOI18N
@@ -886,7 +889,7 @@ public class DlgBarang extends javax.swing.JDialog {
         label27.setName("label27"); // NOI18N
         label27.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label27);
-        label27.setBounds(8, 192, 108, 23);
+        label27.setBounds(260, 190, 108, 23);
 
         ralan.setName("ralan"); // NOI18N
         ralan.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -906,7 +909,7 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(ralan);
-        ralan.setBounds(117, 192, 110, 23);
+        ralan.setBounds(370, 190, 110, 23);
 
         nmsat.setEditable(false);
         nmsat.setName("nmsat"); // NOI18N
@@ -947,7 +950,7 @@ public class DlgBarang extends javax.swing.JDialog {
         label14.setName("label14"); // NOI18N
         label14.setPreferredSize(new java.awt.Dimension(85, 23));
         FormInput.add(label14);
-        label14.setBounds(505, 162, 135, 23);
+        label14.setBounds(10, 190, 135, 23);
 
         stok_minimal.setHighlighter(null);
         stok_minimal.setName("stok_minimal"); // NOI18N
@@ -968,7 +971,7 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(stok_minimal);
-        stok_minimal.setBounds(644, 162, 100, 23);
+        stok_minimal.setBounds(150, 190, 100, 23);
 
         label20.setText("Jenis Barang :");
         label20.setName("label20"); // NOI18N
@@ -1009,7 +1012,7 @@ public class DlgBarang extends javax.swing.JDialog {
         label29.setName("label29"); // NOI18N
         label29.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label29);
-        label29.setBounds(8, 162, 108, 23);
+        label29.setBounds(30, 220, 108, 23);
 
         beli.setName("beli"); // NOI18N
         beli.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -1029,7 +1032,7 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(beli);
-        beli.setBounds(117, 162, 110, 23);
+        beli.setBounds(140, 220, 110, 23);
 
         label32.setText("Kapasitas :");
         label32.setName("label32"); // NOI18N
@@ -1065,19 +1068,19 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(kelas3);
-        kelas3.setBounds(370, 192, 110, 23);
+        kelas3.setBounds(670, 40, 110, 23);
 
         label30.setText("Hrg Rnp Kelas 3 : Rp.");
         label30.setName("label30"); // NOI18N
         label30.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label30);
-        label30.setBounds(210, 192, 160, 23);
+        label30.setBounds(510, 40, 160, 23);
 
         label33.setText("Hrg Rnp Utama/BPJS : Rp.");
         label33.setName("label33"); // NOI18N
         label33.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label33);
-        label33.setBounds(210, 222, 160, 23);
+        label33.setBounds(540, 70, 130, 23);
 
         utama.setName("utama"); // NOI18N
         utama.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -1097,7 +1100,7 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(utama);
-        utama.setBounds(370, 222, 110, 23);
+        utama.setBounds(670, 70, 110, 23);
 
         kelasvip.setName("kelasvip"); // NOI18N
         kelasvip.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -1117,19 +1120,19 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(kelasvip);
-        kelasvip.setBounds(660, 12, 110, 23);
+        kelasvip.setBounds(670, 100, 110, 23);
 
         label34.setText("Hrg Rnp Kelas VIP : Rp.");
         label34.setName("label34"); // NOI18N
         label34.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label34);
-        label34.setBounds(500, 12, 160, 23);
+        label34.setBounds(510, 100, 160, 23);
 
         label35.setText("Hrg Rnp Kelas VVIP : Rp.");
         label35.setName("label35"); // NOI18N
         label35.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label35);
-        label35.setBounds(500, 42, 160, 23);
+        label35.setBounds(510, 130, 160, 23);
 
         kelasvvip.setName("kelasvvip"); // NOI18N
         kelasvvip.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -1149,13 +1152,13 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(kelasvvip);
-        kelasvvip.setBounds(660, 42, 110, 23);
+        kelasvvip.setBounds(670, 130, 110, 23);
 
         label36.setText("Hrg Jika Beli dari Apotek Lain : Rp.");
         label36.setName("label36"); // NOI18N
         label36.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label36);
-        label36.setBounds(470, 72, 190, 23);
+        label36.setBounds(480, 160, 190, 23);
 
         beliluar.setName("beliluar"); // NOI18N
         beliluar.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -1175,7 +1178,7 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(beliluar);
-        beliluar.setBounds(660, 72, 110, 23);
+        beliluar.setBounds(670, 160, 110, 23);
 
         jualbebas.setName("jualbebas"); // NOI18N
         jualbebas.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -1195,19 +1198,19 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(jualbebas);
-        jualbebas.setBounds(660, 102, 110, 23);
+        jualbebas.setBounds(670, 190, 110, 23);
 
         label37.setText("Hrg Jual Obat Bebas : Rp.");
         label37.setName("label37"); // NOI18N
         label37.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label37);
-        label37.setBounds(470, 102, 190, 23);
+        label37.setBounds(480, 190, 190, 23);
 
         label38.setText("Hrg Karyawan : Rp.");
         label38.setName("label38"); // NOI18N
         label38.setPreferredSize(new java.awt.Dimension(65, 23));
         FormInput.add(label38);
-        label38.setBounds(470, 132, 190, 23);
+        label38.setBounds(480, 220, 190, 23);
 
         karyawan.setName("karyawan"); // NOI18N
         karyawan.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -1227,10 +1230,10 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(karyawan);
-        karyawan.setBounds(660, 132, 110, 23);
+        karyawan.setBounds(670, 220, 110, 23);
 
         DTPExpired.setForeground(new java.awt.Color(50, 70, 50));
-        DTPExpired.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2017" }));
+        DTPExpired.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-10-2017" }));
         DTPExpired.setDisplayFormat("dd-MM-yyyy");
         DTPExpired.setName("DTPExpired"); // NOI18N
         DTPExpired.setOpaque(false);
@@ -1240,7 +1243,7 @@ public class DlgBarang extends javax.swing.JDialog {
             }
         });
         FormInput.add(DTPExpired);
-        DTPExpired.setBounds(644, 192, 100, 23);
+        DTPExpired.setBounds(150, 160, 100, 23);
 
         ChkKadaluarsa.setBackground(new java.awt.Color(235, 255, 235));
         ChkKadaluarsa.setBorder(null);
@@ -1254,7 +1257,7 @@ public class DlgBarang extends javax.swing.JDialog {
         ChkKadaluarsa.setName("ChkKadaluarsa"); // NOI18N
         ChkKadaluarsa.setOpaque(false);
         FormInput.add(ChkKadaluarsa);
-        ChkKadaluarsa.setBounds(490, 192, 150, 23);
+        ChkKadaluarsa.setBounds(-10, 160, 150, 23);
 
         label21.setText("I.F. :");
         label21.setName("label21"); // NOI18N
@@ -1290,6 +1293,32 @@ public class DlgBarang extends javax.swing.JDialog {
         });
         FormInput.add(BtnIF);
         BtnIF.setBounds(455, 12, 25, 23);
+
+        label39.setText("Persen Markup : %");
+        label39.setName("label39"); // NOI18N
+        label39.setPreferredSize(new java.awt.Dimension(65, 23));
+        FormInput.add(label39);
+        label39.setBounds(260, 160, 108, 23);
+
+        markup.setName("markup"); // NOI18N
+        markup.setPreferredSize(new java.awt.Dimension(207, 23));
+        markup.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                markupMouseMoved(evt);
+            }
+        });
+        markup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                markupMouseExited(evt);
+            }
+        });
+        markup.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                markupKeyPressed(evt);
+            }
+        });
+        FormInput.add(markup);
+        markup.setBounds(370, 160, 110, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1978,6 +2007,26 @@ private void KapasitasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         industri.setVisible(true);
     }//GEN-LAST:event_BtnIFActionPerformed
 
+    private void markupMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_markupMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_markupMouseMoved
+
+    private void markupMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_markupMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_markupMouseExited
+
+    private void markupKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_markupKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
+            isjml();
+        }else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            isjml();
+            BtnSimpan.requestFocus();
+        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){          
+            isjml();
+            BtnSimpan.requestFocus();
+        }
+    }//GEN-LAST:event_markupKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -2054,7 +2103,9 @@ private void KapasitasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private widget.Label label36;
     private widget.Label label37;
     private widget.Label label38;
+    private widget.Label label39;
     private widget.Label label9;
+    private widget.TextBox markup;
     private widget.TextBox nmjns;
     private widget.TextBox nmsat;
     private widget.panelisi panelisi1;
@@ -2492,5 +2543,27 @@ private void KapasitasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             MnRestore.setEnabled(false);
         } 
     }
+    
+    private void isjml(){
+        DecimalFormat df2 = new DecimalFormat("####");
+
+        if((! beli.getText().equals(""))&&(! markup.getText().equals(""))){
+            double x=Double.parseDouble(beli.getText().trim());
+            double y=Double.parseDouble(markup.getText().trim());
+            double z=x*1.1;
+            double t=z+(z*(y/100));
+            ralan.setText(df2.format(t));
+            kelas1.setText(df2.format(t));
+            kelas2.setText(df2.format(t));
+            kelas3.setText(df2.format(t));
+            utama.setText(df2.format(t));
+            kelasvip.setText(df2.format(t));
+            kelasvvip.setText(df2.format(t));
+            beliluar.setText(df2.format(t));
+            jualbebas.setText(df2.format(t));
+            karyawan.setText(df2.format(t));
+            
+        }
+    }    
 
 }
