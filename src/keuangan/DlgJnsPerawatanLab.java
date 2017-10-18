@@ -53,7 +53,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         Object[] row={
             "P","Kode Periksa","Nama Pemeriksaan","J.S. RS",
             "Paket BHP","J.M. Perujuk","J.M. Dokter","J.M. Petugas",
-            "K.S.O.","Menejemen","Total Tarif","Jenis Bayar"};
+            "K.S.O.","Menejemen","Total Tarif","Jenis Bayar","Jenis Kelas"};
         tabMode=new DefaultTableModel(null,row){
              @Override public boolean isCellEditable(int rowIndex, int colIndex){
                 boolean a = false;
@@ -65,7 +65,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
              Class[] types = new Class[] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, 
                 java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, 
-                java.lang.Double.class,java.lang.Double.class,java.lang.Double.class, java.lang.Object.class
+                java.lang.Double.class,java.lang.Double.class,java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
              };
              @Override
              public Class getColumnClass(int columnIndex) {
@@ -105,7 +105,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         JMLaborat.setDocument(new batasInput((int)15).getOnlyAngka(JMLaborat));
         TotalBiaya.setDocument(new batasInput((int)20).getOnlyAngka(TotalBiaya));
         kdpnj.setDocument(new batasInput((int)3).getKata(kdpnj));
-
+        
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));          
         if(koneksiDB.cariCepat().equals("aktif")){
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
@@ -134,6 +134,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         Popup = new javax.swing.JPopupMenu();
         ppTemplate = new javax.swing.JMenuItem();
         MnRestore = new javax.swing.JMenuItem();
+        checkbox1 = new java.awt.Checkbox();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbJnsPerawatan = new widget.Table();
@@ -178,6 +179,8 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         KSO = new widget.TextBox();
         jLabel16 = new widget.Label();
         Menejemen = new widget.TextBox();
+        jLabel19 = new widget.Label();
+        jnskelas = new widget.ComboBox();
         ChkInput = new widget.CekBox();
 
         Popup.setName("Popup"); // NOI18N
@@ -215,6 +218,9 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
             }
         });
         Popup.add(MnRestore);
+
+        checkbox1.setLabel("checkbox1");
+        checkbox1.setName("checkbox1"); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -497,10 +503,10 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(jLabel13);
         jLabel13.setBounds(-10, 132, 135, 23);
 
-        jLabel18.setText("Jenis Bayar :");
+        jLabel18.setText("Kelas :");
         jLabel18.setName("jLabel18"); // NOI18N
         FormInput.add(jLabel18);
-        jLabel18.setBounds(300, 132, 130, 23);
+        jLabel18.setBounds(300, 160, 130, 23);
 
         kdpnj.setHighlighter(null);
         kdpnj.setName("kdpnj"); // NOI18N
@@ -642,6 +648,17 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(Menejemen);
         Menejemen.setBounds(453, 72, 170, 23);
 
+        jLabel19.setText("Jenis Bayar :");
+        jLabel19.setName("jLabel19"); // NOI18N
+        FormInput.add(jLabel19);
+        jLabel19.setBounds(300, 132, 130, 23);
+
+        jnskelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ralan", "Kelas 1", "Kelas 2", "Kelas 3", "VIP" }));
+        jnskelas.setName("jnskelas"); // NOI18N
+        jnskelas.setPreferredSize(new java.awt.Dimension(100, 23));
+        FormInput.add(jnskelas);
+        jnskelas.setBounds(440, 160, 120, 23);
+
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
         ChkInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -702,9 +719,9 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         }else if(Menejemen.getText().trim().equals("")){
             Valid.textKosong(Menejemen,"Menejemen");
         }else{
-            if(Sequel.menyimpantf("jns_perawatan_lab","?,?,?,?,?,?,?,?,?,?,?,?","Kode Periksa",12,new String[]{
+            if(Sequel.menyimpantf("jns_perawatan_lab","?,?,?,?,?,?,?,?,?,?,?,?,?","Kode Periksa",13,new String[]{
                 TKd.getText(),TNm.getText(),BagianRs.getText(),Bhp.getText(),JMPerujuk.getText(),JMDokter.getText(),
-                JMLaborat.getText(),KSO.getText(),Menejemen.getText(),TotalBiaya.getText(),kdpnj.getText(),"1"
+                JMLaborat.getText(),KSO.getText(),Menejemen.getText(),TotalBiaya.getText(),kdpnj.getText(),"1",jnskelas.getSelectedItem().toString()
             })==true){
                 BtnCariActionPerformed(evt);
                 emptTeks();
@@ -770,9 +787,9 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         }else if(Menejemen.getText().trim().equals("")){
             Valid.textKosong(Menejemen,"Menejemen");
         }else{
-            Sequel.mengedit("jns_perawatan_lab","kd_jenis_prw=?","kd_jenis_prw=?,nm_perawatan=?,bagian_rs=?,tarif_tindakan_petugas=?,total_byr=?,kd_pj=?,tarif_tindakan_dokter=?,tarif_perujuk=?,bhp=?,kso=?,menejemen=?",12,new String[]{
+            Sequel.mengedit("jns_perawatan_lab","kd_jenis_prw=?","kd_jenis_prw=?,nm_perawatan=?,bagian_rs=?,tarif_tindakan_petugas=?,total_byr=?,kd_pj=?,tarif_tindakan_dokter=?,tarif_perujuk=?,bhp=?,kso=?,menejemen=?,jnskelas=?",13,new String[]{
                 TKd.getText(),TNm.getText(),BagianRs.getText(),JMLaborat.getText(),TotalBiaya.getText(),kdpnj.getText(),JMDokter.getText(),JMPerujuk.getText(),Bhp.getText(),
-                KSO.getText(),Menejemen.getText(),tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),1).toString()
+                KSO.getText(),Menejemen.getText(),jnskelas.getSelectedItem().toString(),tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),1).toString()
             });
             if(tabMode.getRowCount()!=0){BtnCariActionPerformed(evt);}
             emptTeks();
@@ -1116,6 +1133,7 @@ private void btnPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     private widget.TextBox TNm;
     private widget.TextBox TotalBiaya;
     private widget.Button btnPj;
+    private java.awt.Checkbox checkbox1;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel10;
     private widget.Label jLabel11;
@@ -1125,12 +1143,14 @@ private void btnPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     private widget.Label jLabel15;
     private widget.Label jLabel16;
     private widget.Label jLabel18;
+    private widget.Label jLabel19;
     private widget.Label jLabel3;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
     private widget.Label jLabel9;
     private javax.swing.JPanel jPanel3;
+    private widget.ComboBox jnskelas;
     private widget.TextBox kdpnj;
     private widget.TextBox nmpnj;
     private widget.panelisi panelGlass8;
@@ -1146,7 +1166,7 @@ private void btnPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
                         "select jns_perawatan_lab.kd_jenis_prw,jns_perawatan_lab.nm_perawatan,jns_perawatan_lab.bagian_rs,jns_perawatan_lab.bhp,"+
                         "jns_perawatan_lab.tarif_perujuk,jns_perawatan_lab.tarif_tindakan_dokter,jns_perawatan_lab.tarif_tindakan_petugas,"+
                         "jns_perawatan_lab.kso,jns_perawatan_lab.menejemen,jns_perawatan_lab.total_byr, "+
-                        "penjab.png_jawab from jns_perawatan_lab inner join penjab on penjab.kd_pj=jns_perawatan_lab.kd_pj where "+
+                        "penjab.png_jawab,jns_perawatan_lab.jnskelas from jns_perawatan_lab inner join penjab on penjab.kd_pj=jns_perawatan_lab.kd_pj where "+
                         " jns_perawatan_lab.status='1' and jns_perawatan_lab.kd_jenis_prw like ? or  "+
                         " jns_perawatan_lab.status='1' and jns_perawatan_lab.nm_perawatan like ? or "+
                         " jns_perawatan_lab.status='1' and penjab.png_jawab like ? "+
@@ -1161,7 +1181,7 @@ private void btnPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
                         false,rs.getString(1),rs.getString(2),
                         rs.getDouble(3),rs.getDouble(4),rs.getDouble(5),
                         rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),
-                        rs.getDouble(9),rs.getDouble(10),rs.getString(11)
+                        rs.getDouble(9),rs.getDouble(10),rs.getString(11),rs.getString(12)
                     });
                 }
             } catch (Exception e) {
@@ -1212,6 +1232,7 @@ private void btnPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
             TotalBiaya.setText(Valid.SetAngka2(Double.parseDouble(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),10).toString())));
             Sequel.cariIsi("select kd_pj from jns_perawatan_lab where kd_jenis_prw=?", kdpnj,tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),1).toString());
             nmpnj.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),11).toString());
+            jnskelas.setSelectedItem(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),12).toString());
         }
     }
 
