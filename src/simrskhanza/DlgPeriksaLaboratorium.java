@@ -1984,7 +1984,11 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     String kelas=Sequel.cariIsi(
                             "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
                                     "where no_rawat=? and stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",TNoRw.getText());
-                    posisilayanan = kelas;
+                    if ("Kelas Utama".equals(kelas)){
+                        posisilayanan = "VIP";
+                    } else {
+                        posisilayanan = kelas;
+                    }
                     break;    
                 case "Ralan":
                     posisilayanan = "Ralan";
@@ -1993,6 +1997,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     posisilayanan = "VIP";
                     break;
             }
+//                    " jns_perawatan_lab.status='1' and (jns_perawatan_lab.kd_pj=? or jns_perawatan_lab.kd_pj='-') and jns_perawatan_lab.kd_jenis_prw like ? or "+
             
             pstindakan=koneksi.prepareStatement(
                     "select jns_perawatan_lab.kd_jenis_prw,jns_perawatan_lab.nm_perawatan,jns_perawatan_lab.total_byr,"+
@@ -2000,30 +2005,32 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     "jns_perawatan_lab.tarif_tindakan_dokter,jns_perawatan_lab.tarif_tindakan_petugas,"+
                     "jns_perawatan_lab.kso,jns_perawatan_lab.menejemen,penjab.png_jawab,jns_perawatan_lab.jnskelas "+
                     "from jns_perawatan_lab inner join penjab on penjab.kd_pj=jns_perawatan_lab.kd_pj where "+
-                    " jns_perawatan_lab.status='1' and (jns_perawatan_lab.kd_pj=? or jns_perawatan_lab.kd_pj='-') and jns_perawatan_lab.kd_jenis_prw like ? or "+
-                    " jns_perawatan_lab.status='1' and (jns_perawatan_lab.kd_pj=? or jns_perawatan_lab.kd_pj='-') and jns_perawatan_lab.nm_perawatan like ? and jns_perawatan_lab.jnskelas='"+posisilayanan+"' "+
+                    "jns_perawatan_lab.jnskelas='"+posisilayanan+"' and "+
+                    " jns_perawatan_lab.status='1' and (jns_perawatan_lab.kd_pj=? or jns_perawatan_lab.kd_pj='-') and jns_perawatan_lab.nm_perawatan like ? "+
                     "order by jns_perawatan_lab.kd_jenis_prw");
-            pstindakan2=koneksi.prepareStatement(
+
+//                    " jns_perawatan_lab.status='1' and jns_perawatan_lab.kd_jenis_prw like ? or "+
+pstindakan2=koneksi.prepareStatement(
                     "select jns_perawatan_lab.kd_jenis_prw,jns_perawatan_lab.nm_perawatan,jns_perawatan_lab.total_byr,"+
                     "jns_perawatan_lab.bagian_rs,jns_perawatan_lab.bhp,jns_perawatan_lab.tarif_perujuk,"+
                     "jns_perawatan_lab.tarif_tindakan_dokter,jns_perawatan_lab.tarif_tindakan_petugas,"+
                     "jns_perawatan_lab.kso,jns_perawatan_lab.menejemen,penjab.png_jawab,jns_perawatan_lab.jnskelas "+
                     "from jns_perawatan_lab inner join penjab on penjab.kd_pj=jns_perawatan_lab.kd_pj where "+
-                    " jns_perawatan_lab.status='1' and jns_perawatan_lab.kd_jenis_prw like ? or "+
-                    " jns_perawatan_lab.status='1' and jns_perawatan_lab.nm_perawatan like ?  and jns_perawatan_lab.jnskelas='"+posisilayanan+"' "+
+                    "jns_perawatan_lab.jnskelas='"+posisilayanan+"' and "+
+                    "jns_perawatan_lab.status='1' and jns_perawatan_lab.nm_perawatan like ? "+
                     "order by jns_perawatan_lab.kd_jenis_prw"); 
             try {
                 switch (cara_bayar_lab) {
                     case "Yes":
                         pstindakan.setString(1,Penjab.getText().trim());
-                        pstindakan.setString(2,"%"+Pemeriksaan.getText().trim()+"%");
-                        pstindakan.setString(3,Penjab.getText().trim());
-                        pstindakan.setString(4,"%"+Pemeriksaan.getText().trim()+"%");
+//                        pstindakan.setString(2,"%"+Pemeriksaan.getText().trim()+"%");
+                        pstindakan.setString(2,Penjab.getText().trim());
+                        pstindakan.setString(3,"%"+Pemeriksaan.getText().trim()+"%");
                         rstindakan=pstindakan.executeQuery();
                         break;
                     case "No":
                         pstindakan2.setString(1,"%"+Pemeriksaan.getText().trim()+"%");                
-                        pstindakan2.setString(2,"%"+Pemeriksaan.getText().trim()+"%");
+//                        pstindakan2.setString(2,"%"+Pemeriksaan.getText().trim()+"%");
                         rstindakan=pstindakan2.executeQuery();
                         break;
                 }            
