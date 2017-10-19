@@ -90,14 +90,14 @@
 								</td>                                                                
 							 </tr> 
                                                          
-                                                         <tr class='isi14'>
+                                                         <!-- tr class='isi14'>
 								<td width='25%'>
 								   <font color='000000' size='2' face='Tahoma'>Catatan</font>
 								</td>
                                                                 <td width='25%' colspan='3'>
 								   <font color='000000' size='2' face='Tahoma'>: $catatan</font>
 								</td>                                                              
-							 </tr> 
+							 </tr -- 
 						 </table>
 					 </td>
                  </tr>

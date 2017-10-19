@@ -10,7 +10,7 @@
     <entry key="CARICEPAT">nonaktif</entry>
     <entry key="HYBRIDWEB">webapps</entry>
     <entry key="ANTRIAN">player</entry>
-    <entry key="MENUTRANSPARAN">yes</entry>
+    <entry key="MENUTRANSPARAN">no</entry>
     <entry key="URLAPIBPJS">http://dvlp.bpjs-kesehatan.go.id:8081/devWslokalrest</entry>
     <entry key="SECRETKEYAPIBPJS">0oV195B99F</entry>
     <entry key="CONSIDAPIBPJS">14178</entry>
