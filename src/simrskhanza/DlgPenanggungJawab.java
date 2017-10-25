@@ -52,7 +52,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         this.setLocation(10,2);
         setSize(628,674);
 
-        Object[] row={"P","Kode Askes/Asuransi","Nama Penanggung/Askes/Asuransi"};
+        Object[] row={"P","Kode Askes/Asuransi","Nama Penanggung/Askes/Asuransi","Alamat"};
         tabMode=new DefaultTableModel(null,row){
              @Override public boolean isCellEditable(int rowIndex, int colIndex){
                 boolean a = false;
@@ -62,7 +62,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
                 return a;
              }
              Class[] types = new Class[] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
              };
              @Override
              public Class getColumnClass(int columnIndex) {
@@ -74,14 +74,16 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 3; i++) {
+        for (i = 0; i < 4; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(20);
             }else if(i==1){
                 column.setPreferredWidth(150);
             }else if(i==2){
-                column.setPreferredWidth(450);
+                column.setPreferredWidth(400);
+            }else if(i==3){
+                column.setPreferredWidth(550);
             }
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
@@ -100,7 +102,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
             });
         } 
         try{
-            ps=koneksi.prepareStatement("select kd_pj, png_jawab "+
+            ps=koneksi.prepareStatement("select kd_pj, png_jawab, alamat "+
                 " from penjab where  kd_pj like ? or png_jawab like ? order by png_jawab ");
         }catch(Exception ex){
             System.out.println(ex);
@@ -134,6 +136,8 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         Kd = new widget.TextBox();
         label36 = new widget.Label();
         Nm = new widget.TextBox();
+        label37 = new widget.Label();
+        alamat = new widget.TextBox();
         jPanel1 = new javax.swing.JPanel();
         panelisi3 = new widget.panelisi();
         label9 = new widget.Label();
@@ -309,7 +313,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         internalFrame1.add(Scroll, java.awt.BorderLayout.CENTER);
 
         panelisi4.setName("panelisi4"); // NOI18N
-        panelisi4.setPreferredSize(new java.awt.Dimension(100, 47));
+        panelisi4.setPreferredSize(new java.awt.Dimension(100, 87));
         panelisi4.setLayout(null);
 
         label34.setText("Kode Askes/Asuransi :");
@@ -343,6 +347,22 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         });
         panelisi4.add(Nm);
         Nm.setBounds(338, 12, 280, 23);
+
+        label37.setText("Alamat :");
+        label37.setName("label37"); // NOI18N
+        label37.setPreferredSize(new java.awt.Dimension(35, 23));
+        panelisi4.add(label37);
+        label37.setBounds(215, 40, 120, 23);
+
+        alamat.setHighlighter(null);
+        alamat.setName("alamat"); // NOI18N
+        alamat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                alamatKeyPressed(evt);
+            }
+        });
+        panelisi4.add(alamat);
+        alamat.setBounds(338, 40, 280, 23);
 
         internalFrame1.add(panelisi4, java.awt.BorderLayout.PAGE_START);
 
@@ -546,7 +566,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         }else if(Nm.getText().trim().equals("")){
             Valid.textKosong(Nm,"Nama Penanggung/Askes/Asuransi");
         }else{
-            Sequel.menyimpan("penjab","'"+Kd.getText()+"','"+Nm.getText()+"'","Kode Penanggung/Askes/Asuransi");
+            Sequel.menyimpan("penjab","'"+Kd.getText()+"','"+Nm.getText()+"','"+alamat.getText()+"'","Kode Penanggung/Askes/Asuransi");
             BtnCariActionPerformed(evt);
             emptTeks();
         }
@@ -594,7 +614,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         }else if(Nm.getText().trim().equals("")){
             Valid.textKosong(Nm,"Nama Penanggung/Askes/Asuransi");
         }else{
-            Valid.editTable(tabMode,"penjab","kd_pj",Kd2,"png_jawab='"+Nm.getText()+"',kd_pj='"+Kd.getText()+"'");
+            Valid.editTable(tabMode,"penjab","kd_pj",Kd2,"png_jawab='"+Nm.getText()+"',kd_pj='"+Kd.getText()+"',alamat='"+alamat.getText()+"'");
             if(tabMode.getRowCount()!=0){BtnCariActionPerformed(evt);}
             emptTeks();
         }
@@ -625,9 +645,10 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
             BtnBatal.requestFocus();
         }else if(tabMode.getRowCount()!=0){            
-            Valid.MyReport("rptPenjab.jrxml","report","::[ Data Satuan ]::","select kd_pj, png_jawab "+
+            Valid.MyReport("rptPenjab.jrxml","report","::[ Data Satuan ]::","select kd_pj, png_jawab, alamat "+
                 " from penjab where  kd_pj like '%"+TCari.getText().trim()+"%' or "+
-                " png_jawab like '%"+TCari.getText().trim()+"%' order by kd_pj");
+                " png_jawab like '%"+TCari.getText().trim()+"%' or "+
+                " alamat like '%"+TCari.getText().trim()+"%' order by kd_pj");
         }
         this.setCursor(Cursor.getDefaultCursor());
 }//GEN-LAST:event_BtnPrintActionPerformed
@@ -720,6 +741,10 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
         tampil();
     }//GEN-LAST:event_formWindowOpened
 
+    private void alamatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alamatKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alamatKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -752,11 +777,13 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
     private javax.swing.JPopupMenu Popup;
     private widget.ScrollPane Scroll;
     private widget.TextBox TCari;
+    private widget.TextBox alamat;
     private widget.InternalFrame internalFrame1;
     private javax.swing.JPanel jPanel1;
     private widget.Label label10;
     private widget.Label label34;
     private widget.Label label36;
+    private widget.Label label37;
     private widget.Label label9;
     private widget.panelisi panelisi1;
     private widget.panelisi panelisi3;
@@ -776,12 +803,13 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
         try{
             ps.setString(1,"%"+TCari.getText().trim()+"%");
             ps.setString(2,"%"+TCari.getText().trim()+"%");
+//            ps.setString(3,"%"+TCari.getText().trim()+"%");
             rs=ps.executeQuery();
             while(rs.next()){
                 tabMode.addRow(new Object[]{false,rs.getString(1),rs.getString(2)});
             }
         }catch(SQLException e){
-            System.out.println("Notifikasi : "+e);
+            System.out.println("Notifikasi : error saat menampilkan data - "+e);
         }
         LCount.setText(""+tabMode.getRowCount());
     }
@@ -790,6 +818,7 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
         Kd.setText("");
         Kd2.setText("");
         Nm.setText("");
+        alamat.setText("");
         Kd.requestFocus();        
         Valid.autoNomer("penjab","A",2,Kd);
     }
@@ -799,6 +828,7 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
             Kd.setText(tbKamar.getValueAt(tbKamar.getSelectedRow(),1).toString());
             Kd2.setText(tbKamar.getValueAt(tbKamar.getSelectedRow(),1).toString());
             Nm.setText(tbKamar.getValueAt(tbKamar.getSelectedRow(),2).toString());
+            alamat.setText(tbKamar.getValueAt(tbKamar.getSelectedRow(),3).toString());
         }
     }
 

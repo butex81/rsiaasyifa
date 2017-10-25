@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -46,7 +47,9 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
              Service=0,ttlLaborat=0,ttlRadiologi=0,ttlOperasi=0,ttlObat=0,ttlRanap_Dokter=0,ttlRanap_Paramedis=0,ttlRalan_Dokter=0,
              ttlRalan_Paramedis=0,ttlTambahan=0,ttlPotongan=0,ttlKamar=0,ttlRegistrasi=0,ttlHarian=0,ttlRetur_Obat=0,ttlResep_Pulang=0,
              ttlService=0,ttlUangMuka=0,ttlCicilan=0;
-
+    private int i;
+    private String biaya="";
+    
     /** Creates new form DlgLhtBiaya
      * @param parent
      * @param modal */
@@ -170,6 +173,9 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
     private void initComponents() {
 
         TKd = new widget.TextBox();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        mnInvoice = new javax.swing.JMenuItem();
+        mnKwitansi = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbBangsal = new widget.Table();
@@ -196,6 +202,42 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
         TKd.setName("TKd"); // NOI18N
         TKd.setSelectionColor(new java.awt.Color(255, 255, 255));
 
+        jPopupMenu1.setName("jPopupMenu1"); // NOI18N
+
+        mnInvoice.setBackground(new java.awt.Color(255, 255, 255));
+        mnInvoice.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        mnInvoice.setForeground(java.awt.Color.darkGray);
+        mnInvoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        mnInvoice.setText("Cetak Invoice");
+        mnInvoice.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        mnInvoice.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        mnInvoice.setIconTextGap(5);
+        mnInvoice.setName("mnInvoice"); // NOI18N
+        mnInvoice.setPreferredSize(new java.awt.Dimension(250, 25));
+        mnInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnInvoiceActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(mnInvoice);
+
+        mnKwitansi.setBackground(new java.awt.Color(255, 255, 255));
+        mnKwitansi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        mnKwitansi.setForeground(java.awt.Color.darkGray);
+        mnKwitansi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        mnKwitansi.setText("Cetak Kwitansi");
+        mnKwitansi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        mnKwitansi.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        mnKwitansi.setIconTextGap(5);
+        mnKwitansi.setName("mnKwitansi"); // NOI18N
+        mnKwitansi.setPreferredSize(new java.awt.Dimension(250, 25));
+        mnKwitansi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnKwitansiActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(mnKwitansi);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
@@ -209,10 +251,12 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll.setComponentPopupMenu(jPopupMenu1);
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
         tbBangsal.setToolTipText("");
+        tbBangsal.setComponentPopupMenu(jPopupMenu1);
         tbBangsal.setName("tbBangsal"); // NOI18N
         tbBangsal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -280,7 +324,6 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
         });
         panelGlass5.add(BtnAll);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 0, 51));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Belum Dibayar :");
@@ -608,6 +651,74 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         //Valid.pindah(evt,DTPCari2,TCari);
     }//GEN-LAST:event_BtnSeek2KeyPressed
 
+    private void mnInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnInvoiceActionPerformed
+       this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        if(! TCari.getText().trim().equals("")){
+            BtnCariActionPerformed(evt);
+        }
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+            BtnKeluar.requestFocus();
+        }else if(kdpenjab.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, pilih terlebih dahulu cara bayarnya!!!!");
+            BtnSeek2.requestFocus();
+        }else if(tabMode.getRowCount()!=0){
+            biaya = (String)JOptionPane.showInputDialog(null,"Masukkan No Invoice Penagihan","No Invoice",JOptionPane.QUESTION_MESSAGE);
+            Map<String, Object> param = new HashMap<>(); 
+                param.put("namars",var.getnamars());
+                param.put("alamatrs",var.getalamatrs());
+                param.put("kotars",var.getkabupatenrs());
+                param.put("propinsirs",var.getpropinsirs());
+                param.put("kontakrs",var.getkontakrs());
+                param.put("emailrs",var.getemailrs());   
+                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("noinvoice",biaya);
+                param.put("namaasuransi",nmpenjab.getText());
+                param.put("alamatasuransi",Sequel.cariIsi("select alamat from penjab where kd_pj='"+kdpenjab.getText()+"'"));
+                param.put("periode",Tgl1.getSelectedItem()+" sampai "+Tgl2.getSelectedItem());
+                param.put("jumlah","Rp. "+LCount.getText());
+                int terbilang = (int) (sisapiutang);
+                param.put("terbilang",info_terbilang(terbilang)+" Rupiah");
+                
+            Valid.MyReport("rptInvoicePiutangAsuransi.jrxml","report","::[ Invoice Piutang ]::","select * from penjab",param);
+        }
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_mnInvoiceActionPerformed
+
+    private void mnKwitansiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKwitansiActionPerformed
+       this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        if(! TCari.getText().trim().equals("")){
+            BtnCariActionPerformed(evt);
+        }
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+            BtnKeluar.requestFocus();
+        }else if(kdpenjab.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, pilih terlebih dahulu cara bayarnya!!!!");
+            BtnSeek2.requestFocus();
+        }else if(tabMode.getRowCount()!=0){
+//            biaya = (String)JOptionPane.showInputDialog(null,"Masukkan No Invoice Penagihan","No Invoice",JOptionPane.QUESTION_MESSAGE);
+            Map<String, Object> param = new HashMap<>(); 
+                param.put("namars",var.getnamars());
+                param.put("alamatrs",var.getalamatrs());
+                param.put("kotars",var.getkabupatenrs());
+                param.put("propinsirs",var.getpropinsirs());
+                param.put("kontakrs",var.getkontakrs());
+                param.put("emailrs",var.getemailrs());   
+                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+//                param.put("noinvoice",biaya);
+                param.put("namaasuransi",nmpenjab.getText());
+//                param.put("alamatasuransi",Sequel.cariIsi("select alamat from penjab where kd_pj='"+kdpenjab.getText()+"'"));
+                param.put("periode",Tgl1.getSelectedItem()+" sampai "+Tgl2.getSelectedItem());
+                param.put("jumlah","Rp. "+LCount.getText());
+                int terbilang = (int) (sisapiutang);
+                param.put("terbilang",info_terbilang(terbilang)+" Rupiah");
+                
+            Valid.MyReport("rptKwitansiPiutangAsuransi.jrxml","report","::[ Kwitansi Piutang ]::","select * from penjab",param);
+        }
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_mnKwitansiActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -638,11 +749,14 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Tanggal Tgl2;
     private widget.InternalFrame internalFrame1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private widget.TextBox kdpenjab;
     private widget.Label label11;
     private widget.Label label17;
     private widget.Label label18;
     private widget.Label label19;
+    private javax.swing.JMenuItem mnInvoice;
+    private javax.swing.JMenuItem mnKwitansi;
     private widget.TextBox nmpenjab;
     private widget.panelisi panelGlass5;
     private widget.panelisi panelisi4;
@@ -1107,5 +1221,34 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         Tgl1.setDate(tgl);
     }
     
-
+    public String info_terbilang(int value)
+    {
+        String [] bilangan ={"","Satu","Dua","Tiga","Empat","Lima","Enam","Tujuh","Delapan","Sembilan","Sepuluh","Sebelas"};
+        String temp=" ";
+        if (value<12){
+            temp = " " + bilangan[value];
+        }
+        else if(value<20){
+            temp = info_terbilang(value-10) + " Belas";
+        }
+        else if(value<100){
+            temp = info_terbilang(value/10) + " Puluh" + info_terbilang(value%10);
+        }
+        else if(value<200){
+            temp = " Seratus" + info_terbilang(value-100);
+        }
+        else if(value<1000){
+            temp = info_terbilang(value/100) + " Ratus" + info_terbilang(value%100);
+        }
+        else if(value<2000){
+            temp = "Seribu"+ info_terbilang(value-1000);
+        }
+        else if(value<1000000){
+            temp = info_terbilang(value/1000) + " Ribu" + info_terbilang (value%1000);
+        }
+        else if(value<1000000000){
+            temp = info_terbilang(value/1000000) + " Juta" + info_terbilang (value%1000000);
+        }
+        return temp;
+    }
 }
