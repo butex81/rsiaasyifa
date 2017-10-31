@@ -68,6 +68,8 @@ public final class DlgPeriksaLaboratorium extends javax.swing.JDialog {
             Utang_Jasa_Medik_Petugas_Laborat_Ranap="", Beban_Kso_Laborat_Ranap="", Utang_Kso_Laborat_Ranap="", 
             HPP_Persediaan_Laborat_Rawat_inap="", Persediaan_BHP_Laborat_Rawat_Inap="";
     private String posisilayanan;
+    private String kelas;
+    private String gabung;
     
     
     /** Creates new form DlgPerawatan
@@ -1981,9 +1983,18 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 posisilayanan = "VIP";
             } else switch (posisilayanan) {
                 case "Ranap":
-                    String kelas=Sequel.cariIsi(
-                            "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
-                                    "where no_rawat=? and stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",TNoRw.getText());
+                    String TestG=TNoRw.getText();
+                    gabung=Sequel.cariIsi(
+                            "select no_rawat from ranap_gabung where no_rawat2=? ",TestG);
+                    if ("".equals(gabung)) {
+                        kelas=Sequel.cariIsi(
+                                "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
+                                        "where no_rawat=? and stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",TNoRw.getText());
+                    } else {
+                        kelas=Sequel.cariIsi(
+                                "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
+                                        "where no_rawat=? and stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",gabung);
+                    }
                     if ("Kelas Utama".equals(kelas)){
                         posisilayanan = "VIP";
                     } else {
@@ -1993,6 +2004,15 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 case "Ralan":
                     posisilayanan = "Ralan";
                     break;
+                case "Kelas 1":
+                    break;
+                case "Kelas 2":
+                    break;
+                case "Kelas 3":
+                    break;                    
+                case "Kelas Utama":
+                    posisilayanan = "VIP";
+                    break;                    
                 default:
                     posisilayanan = "VIP";
                     break;
