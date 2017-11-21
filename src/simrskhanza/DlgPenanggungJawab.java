@@ -811,7 +811,7 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
 //            ps.setString(3,"%"+TCari.getText().trim()+"%");
             rs=ps.executeQuery();
             while(rs.next()){
-                tabMode.addRow(new Object[]{false,rs.getString(1),rs.getString(2)});
+                tabMode.addRow(new Object[]{false,rs.getString(1),rs.getString(2),rs.getString(3)});
             }
         }catch(SQLException e){
             System.out.println("Notifikasi : error saat menampilkan data - "+e);
