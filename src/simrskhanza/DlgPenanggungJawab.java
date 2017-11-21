@@ -137,7 +137,8 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         label36 = new widget.Label();
         Nm = new widget.TextBox();
         label37 = new widget.Label();
-        alamat = new widget.TextBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        alamat = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         panelisi3 = new widget.panelisi();
         label9 = new widget.Label();
@@ -286,7 +287,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Penanggung Pasien/Asuransi/Askes ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 70, 40))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Penanggung Pasien/Asuransi/Askes ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(50, 70, 40))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -313,7 +314,7 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         internalFrame1.add(Scroll, java.awt.BorderLayout.CENTER);
 
         panelisi4.setName("panelisi4"); // NOI18N
-        panelisi4.setPreferredSize(new java.awt.Dimension(100, 87));
+        panelisi4.setPreferredSize(new java.awt.Dimension(100, 130));
         panelisi4.setLayout(null);
 
         label34.setText("Kode Askes/Asuransi :");
@@ -354,15 +355,22 @@ public final class DlgPenanggungJawab extends javax.swing.JDialog {
         panelisi4.add(label37);
         label37.setBounds(215, 40, 120, 23);
 
-        alamat.setHighlighter(null);
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jScrollPane1.setName("alamat"); // NOI18N
+
+        alamat.setBackground(new java.awt.Color(250, 255, 245));
+        alamat.setColumns(20);
+        alamat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        alamat.setForeground(new java.awt.Color(60, 80, 50));
+        alamat.setRows(5);
         alamat.setName("alamat"); // NOI18N
-        alamat.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                alamatKeyPressed(evt);
-            }
-        });
-        panelisi4.add(alamat);
-        alamat.setBounds(338, 40, 280, 23);
+        alamat.setSelectedTextColor(new java.awt.Color(255, 255, 0));
+        alamat.setSelectionColor(new java.awt.Color(50, 51, 0));
+        jScrollPane1.setViewportView(alamat);
+        alamat.getAccessibleContext().setAccessibleParent(panelisi4);
+
+        panelisi4.add(jScrollPane1);
+        jScrollPane1.setBounds(340, 40, 280, 78);
 
         internalFrame1.add(panelisi4, java.awt.BorderLayout.PAGE_START);
 
@@ -741,10 +749,6 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
         tampil();
     }//GEN-LAST:event_formWindowOpened
 
-    private void alamatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_alamatKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_alamatKeyPressed
-
     /**
     * @param args the command line arguments
     */
@@ -777,9 +781,10 @@ private void NmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmKeyP
     private javax.swing.JPopupMenu Popup;
     private widget.ScrollPane Scroll;
     private widget.TextBox TCari;
-    private widget.TextBox alamat;
+    private javax.swing.JTextArea alamat;
     private widget.InternalFrame internalFrame1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private widget.Label label10;
     private widget.Label label34;
     private widget.Label label36;
