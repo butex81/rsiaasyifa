@@ -38,7 +38,7 @@
                                                                         <font color='000000' size='1'  face='Tahoma'>
                                                                             ".$setting["alamat_instansi"].", ".$setting["kabupaten"].", ".$setting["propinsi"]."<br/>
                                                                             ".$setting["kontak"].", E-mail : ".$setting["email"]."
-                                                                             <br /><br />BILLING
+                                                                             <br /><br />STRUK PEMBAYARAN
                                                                         </font> 
                                                                     </center>
                                                                 </td>
