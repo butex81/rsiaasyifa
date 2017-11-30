@@ -16,6 +16,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
@@ -43,6 +45,7 @@ public class DlgPenjualan extends javax.swing.JDialog {
     private String[] kodebarang,namabarang,kategori,satuan;
     private double[] harga,jumlah,subtotal,diskon,besardiskon,totaljual,tambahan,stok;
     private WarnaTable2 warna=new WarnaTable2();
+    private String tgl="",pas="";
 
     /** Creates new form DlgProgramStudi
      * @param parent
@@ -1061,7 +1064,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
             JOptionPane.showMessageDialog(null,"Maaf, Silahkan masukkan penjualan...!!!!");
             tbDokter.requestFocus();
         }else {
-            Sequel.AutoComitFalse();
+            /* Sequel.AutoComitFalse();
             Sequel.queryu("delete from temporary");
             row=tabMode.getRowCount();
             for(i=0;i<row;i++){  
@@ -1083,6 +1086,31 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
             }
             Sequel.AutoComitTrue();
             Valid.panggilUrl("billing/NotaApotek.php?nonota="+NoNota.getText()+"&besarppn="+besarppn+"&bayar="+Bayar.getText()+"&tanggal="+Valid.SetTgl(Tgl.getSelectedItem()+"")+"&catatan="+catatan.getText().replaceAll(" ","_")+"&petugas="+nmptg.getText().replaceAll(" ","_")+"&pasien="+nmmem.getText().replaceAll(" ","_")+"&norm="+kdmem.getText().replaceAll(" ","_"));
+            */
+            
+            Map<String, Object> param = new HashMap<>(); 
+            param.put("namars",var.getnamars());
+            param.put("alamatrs",var.getalamatrs());
+            param.put("kotars",var.getkabupatenrs());
+            param.put("propinsirs",var.getpropinsirs());
+            param.put("kontakrs",var.getkontakrs());
+            param.put("emailrs",var.getemailrs()); 
+            param.put("waktu",""); 
+            param.put("judul","Rekap Nota Resep Obat (APS)"); 
+            param.put("logo",Sequel.cariGambar("select logo from setting")); 
+            pas=" and penjualan.nota_jual='"+NoNota.getText()+"' "; 
+            tgl=" penjualan.tgl_jual between '"+Valid.SetTgl(Tgl.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tgl.getSelectedItem()+"")+"' "+pas;        
+            Valid.MyReport("rptBrObtAPS.jrxml","report","::[ Rekam Data Pemberian Obat (APS) ]::",""+
+                   "select penjualan.nota_jual,penjualan.tgl_jual,penjualan.keterangan,"+
+                   "detailjual.kode_brng,databarang.nama_brng,"+
+                   "detailjual.jumlah,detailjual.total, "+
+                   "kodesatuan.satuan "+
+                   "from penjualan inner join detailjual inner join databarang inner join kodesatuan "+
+                   "on penjualan.nota_jual=detailjual.nota_jual "+
+                   "and detailjual.kode_brng=databarang.kode_brng "+
+                   "and databarang.kode_sat = kodesatuan.kode_sat "+
+                   "where  "+tgl+
+                   " order by penjualan.tgl_jual",param);                                   
         }
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_BtnNotaActionPerformed
@@ -1578,7 +1606,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             }
                             if(stokbarang<y){
                                 JOptionPane.showMessageDialog(rootPane,"Maaf stok tidak mencukupi..!!");
-//                                tbDokter.setValueAt("",row,0);
+                                tbDokter.setValueAt("",row,0);
                             }
                         } catch (Exception e) {
                             tbDokter.setValueAt(0,row,11);

@@ -695,7 +695,7 @@ public final class DlgCariObat2 extends javax.swing.JDialog {
                             }
                             if(stokbarang<y){
                                 JOptionPane.showMessageDialog(rootPane,"Maaf stok tidak mencukupi..!!");
-//                                tbObat.setValueAt("",tbObat.getSelectedRow(),1);
+                                tbObat.setValueAt("",tbObat.getSelectedRow(),1);
                             }
                         } catch (Exception e) {
                             tbObat.setValueAt(0,tbObat.getSelectedRow(),10);
@@ -1348,7 +1348,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     }
     
     public void isCek(){   
-        if(var.getkode().equals("Admin Utama")){
+        /* if(var.getkode().equals("Admin Utama")){
             kdgudang.setEditable(true);
             nmgudang.setEditable(true);
             BtnGudang.setEnabled(true);
@@ -1356,7 +1356,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             kdgudang.setEditable(false);
             nmgudang.setEditable(false);
             BtnGudang.setEnabled(false);
-        }
+        } */
         
         kdgudang.setText(var.getkdbangsal());
         Sequel.cariIsi("select bangsal.nm_bangsal from bangsal where bangsal.kd_bangsal=?",nmgudang,kdgudang.getText());  

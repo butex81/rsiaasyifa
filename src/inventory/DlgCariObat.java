@@ -753,7 +753,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                             }
                             if(stokbarang<y){
                                 JOptionPane.showMessageDialog(rootPane,"Maaf stok tidak mencukupi..!!");
-//                                tbObat.setValueAt("",tbObat.getSelectedRow(),1);
+                                tbObat.setValueAt("",tbObat.getSelectedRow(),1);
                             }
                         } catch (Exception e) {
                             tbObat.setValueAt(0,tbObat.getSelectedRow(),10);
@@ -864,7 +864,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                         }
                         if(stokbarang<y){
                             JOptionPane.showMessageDialog(rootPane,"Maaf stok tidak mencukupi..!!");
-//                            tbObat.setValueAt("",tbObat.getSelectedRow(),1);
+                            tbObat.setValueAt("",tbObat.getSelectedRow(),1);
                         }
                         
                         try {
@@ -1408,7 +1408,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
     }
     
     public void isCek(){     
-        if(var.getkode().equals("Admin Utama")){
+        /* if(var.getkode().equals("Admin Utama")){
             kdgudang.setEditable(true);
             nmgudang.setEditable(true);
             BtnGudang.setEnabled(true);
@@ -1416,7 +1416,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
             kdgudang.setEditable(false);
             nmgudang.setEditable(false);
             BtnGudang.setEnabled(false);
-        }
+        } */
         
         bangsal=Sequel.cariIsi("select kd_bangsal from set_depo_ralan where kd_poli=?",Sequel.cariIsi("select kd_poli from reg_periksa where no_rawat=?",TNoRw.getText()));
         if(bangsal.equals("")){

@@ -47,6 +47,7 @@ public class DlgCariPenjualan extends javax.swing.JDialog {
     private String verifikasi_penjualan_di_kasir=Sequel.cariIsi(
             "select verifikasi_penjualan_di_kasir from set_nota"),
             nofak="",mem="",ptg="",sat="",bar="",tanggal="";
+    private String tgl="",pas="";
     
     /** Creates new form DlgProgramStudi
      * @param parent
@@ -961,7 +962,36 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                 JOptionPane.showMessageDialog(null,"Maaf, data sudah habis...!!!!");
                 kdbar.requestFocus();
             }else {
-                Valid.panggilUrl("billing/NotaApotek2.php?nonota="+tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().trim());          
+                //Valid.panggilUrl("billing/NotaApotek2.php?nonota="+tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().trim());          
+                Map<String, Object> param = new HashMap<>(); 
+                param.put("namars",var.getnamars());
+                param.put("alamatrs",var.getalamatrs());
+                param.put("kotars",var.getkabupatenrs());
+                param.put("propinsirs",var.getpropinsirs());
+                param.put("kontakrs",var.getkontakrs());
+                param.put("emailrs",var.getemailrs()); 
+                param.put("waktu",""); 
+                param.put("judul","Rekap Nota Resep Obat (APS)"); 
+                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                pas=" and penjualan.nota_jual='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString().trim()+"' "; 
+                tgl=" penjualan.tgl_jual between '"+Valid.SetTgl(Tgl1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tgl2.getSelectedItem()+"")+"' "+pas;        
+                Valid.MyReport("rptBrObtAPS.jrxml","report","::[ Rekam Data Pemberian Obat (APS) ]::",""+
+                       "select penjualan.nota_jual,penjualan.tgl_jual,penjualan.keterangan,"+
+                       "detailjual.kode_brng,databarang.nama_brng,"+
+                       "detailjual.jumlah,detailjual.total, "+
+                       "kodesatuan.satuan "+
+                       "from penjualan inner join detailjual inner join databarang inner join kodesatuan "+
+                       "on penjualan.nota_jual=detailjual.nota_jual "+
+                       "and detailjual.kode_brng=databarang.kode_brng "+
+                       "and databarang.kode_sat = kodesatuan.kode_sat "+
+                       "where  "+tgl+"and penjualan.tgl_jual like '%"+TCari.getText().trim()+"%' or "+
+                       tgl+"and penjualan.keterangan like '%"+TCari.getText().trim()+"%' or "+
+                       tgl+"and penjualan.status like '%"+TCari.getText().trim()+"%' or "+
+                       tgl+"and penjualan.nip like '%"+TCari.getText().trim()+"%' or "+
+                       tgl+"and detailjual.kode_brng like '%"+TCari.getText().trim()+"%' or "+
+                       tgl+"and databarang.nama_brng like '%"+TCari.getText().trim()+"%' "+
+                       " order by penjualan.tgl_jual",param);                                   
+
             }
         }            
         this.setCursor(Cursor.getDefaultCursor());
