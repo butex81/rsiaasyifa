@@ -3,7 +3,7 @@
 <properties>
     <comment>KhanzaHMS</comment>
     <entry key="HOST">localhost</entry>
-    <entry key="DATABASE">sik_kopian</entry>
+    <entry key="DATABASE">sik</entry>
     <entry key="PORT">3306</entry>
     <entry key="USER">simrs</entry>
     <entry key="PAS">212simrsadmin</entry>
