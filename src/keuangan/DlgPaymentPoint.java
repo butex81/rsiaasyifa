@@ -576,7 +576,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                     ps= koneksi.prepareStatement(
                             "select no_nota,tgl_bayar,nama_pasien,jumlah_bayar,petugas from tagihan_sadewa "+
                             "where tgl_bayar between ? and ? and nama_pasien like ? or "+
-                            "tgl_bayar between ? and ? and no_nota like ? order by tgl_bayar,no_nota");
+                            "tgl_bayar between ? and ? and no_nota like ? order by tgl_bayar,no_nota"); 
                     try {
                         ps.setString(1,Valid.SetTgl(Tgl1.getSelectedItem()+"")+" "+rsjamshift.getString("jam_masuk"));                        
                         ps.setString(3,"%"+TCari.getText().trim()+"%");
@@ -589,13 +589,15 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                             ps.setString(2,Valid.SetTgl(Tgl1.getSelectedItem()+"")+" "+rsjamshift.getString("jam_pulang"));
                             ps.setString(5,Valid.SetTgl(Tgl1.getSelectedItem()+"")+" "+rsjamshift.getString("jam_pulang"));
                         }
+                        System.out.println(tanggal2);
+                        System.out.println(Tgl1);
                         ps.setString(6,"%"+TCari.getText().trim()+"%");
                         rs=ps.executeQuery();
                         i=1;
                         while(rs.next()){
-                             psjalan= koneksi.prepareStatement(
+                             /*psjalan= koneksi.prepareStatement(
                                 "select tagihan_sadewa.no_nota, detail_nota_jalan.no_rawat,detail_nota_jalan.nama_bayar,detail_nota_jalan.besar_bayar from detail_nota_jalan "+
-                                "where detail_nota_jalan.no_nota like ? order by tgl_bayar,no_nota");
+                                "where detail_nota_jalan.no_nota like ? order by tgl_bayar,no_nota");*/
 
 
                             if(rsjamshift.getString("shift").equals("Pagi")){
@@ -654,9 +656,10 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                     psjamshift.close();
                 }
             }
-/*            if(CmbStatus.getSelectedItem().toString().equals("Semua")){
+/*            double TS = 0;
+            if(CmbStatus.getSelectedItem().toString().equals("Semua")){
                 tabMode.addRow(new Object[]{
-                        "","Modal Awal",":","","",Double.parseDouble(ModalAwal.getText()),"","","","",""
+                        "","Modal Awal",":","","",Double.parseDouble(ModalAwal.getText()),TS,"","","",""
                 });
                 tabMode.addRow(new Object[]{
                         "","Uang Masuk",":","","",all,all,all,all,all,""
@@ -709,7 +712,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                 tabMode.addRow(new Object[]{
                         "",">> Total",":","","",(pagi+siang+sore+malam+Double.parseDouble(ModalAwal.getText())),"","","","",""
                 });
-            }                */
+            }        */        
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
         }
