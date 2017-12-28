@@ -227,7 +227,7 @@ public final class DlgReg extends javax.swing.JDialog {
         AsalRujukan.setDocument(new batasInput((byte)60).getKata(AsalRujukan));
         kddokter.setDocument(new batasInput((byte)20).getKata(kddokter));
         kdpnj.setDocument(new batasInput((byte)3).getKata(kdpnj));
-        TPngJwb.setDocument(new batasInput((byte)30).getKata(TPngJwb));
+        TPngJwb.setDocument(new batasInput((byte)50).getKata(TPngJwb));
         kdpoli.setDocument(new batasInput((byte)5).getKata(kdpoli));
         THbngn.setDocument(new batasInput((byte)20).getKata(THbngn));
         TAlmt.setDocument(new batasInput((byte)60).getKata(TAlmt));

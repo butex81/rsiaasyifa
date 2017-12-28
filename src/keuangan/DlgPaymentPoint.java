@@ -57,7 +57,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
         this.setLocation(8,1);
         setSize(885,674);
 
-        Object[] rowRwJlDr={"No.","Tanggal","Shift","No.Rawat/No.Nota","Nama Pasien","Pembayaran","Bayar Cash","Debit Mandiri","Debit BCA","Debit BNI","Petugas"};
+        Object[] rowRwJlDr={"No.","Tanggal","Shift","No.Rawat/No.Nota","Nama Pasien","Jumlah Tagihan","Bayar Tunai","Debit Mandiri","Debit BCA","Debit BNI","Petugas"};
         tabMode=new DefaultTableModel(null,rowRwJlDr){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
              Class[] types = new Class[] {
@@ -400,12 +400,12 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                                     tabMode.getValueAt(r,2).toString().replaceAll("'","`")+"','"+
                                     tabMode.getValueAt(r,3).toString().replaceAll("'","`")+"','"+
                                     tabMode.getValueAt(r,4).toString().replaceAll("'","`")+"','"+
-                                    Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,5).toString()))+"','"+
-                                    tabMode.getValueAt(r,10).toString().replaceAll("'","`")+
+                                    Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,5).toString()))+"','"+                                    
                                     Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,6).toString()))+"','"+
                                     Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,7).toString()))+"','"+
                                     Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,8).toString()))+"','"+
-                                    Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,9).toString()))+"','"+"','','','','','','','','','','','','','','','','','','','','','','','','','',''","data");
+                                    Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,9).toString()))+"','"+
+                                    tabMode.getValueAt(r,10).toString().replaceAll("'","`")+"','','','','','','','','','','','','','','','','','','','','','','','','','',''","data");
             }
             Sequel.AutoComitTrue();
             Map<String, Object> param = new HashMap<>();                 
@@ -604,13 +604,13 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                     ps = koneksi.prepareStatement(
                             "select tagihan_sadewa.no_nota,tagihan_sadewa.tgl_bayar,tagihan_sadewa.nama_pasien,tagihan_sadewa.jumlah_bayar, "+
                             "    if((select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%cash%') is null, "+
-                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%cash%'),0) AS bayar_tunai, "+
+                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%cash%'),(select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%cash%')) AS bayar_tunai, "+
                             "    if((select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%mandiri%') is null, "+
-                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%mandiri%'),0) AS bayar_mandiri, "+
+                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%mandiri%'),(select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%mandiri%')) AS bayar_mandiri, "+
                             "    if((select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%bca%') is null, "+
-                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%bca%'),0) AS bayar_bca, "+
+                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%bca%'),(select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%bca%')) AS bayar_bca, "+
                             "    if((select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%bni%') is null, "+
-                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%bni%'),0) AS bayar_bni, "+
+                            "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%bni%'),(select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%bni%')) AS bayar_bni, "+
                             "    tagihan_sadewa.petugas "+
                             "from tagihan_sadewa "+
                             "where tgl_bayar between ? and ? and nama_pasien like ? or "+

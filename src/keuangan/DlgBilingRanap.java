@@ -99,7 +99,7 @@ public class DlgBilingRanap extends javax.swing.JDialog {
                     "sum(detreturjual.jml_retur * -1) as jml, "+
                     "sum(detreturjual.subtotal * -1) as ttl, returjual.tgl_retur from detreturjual inner join databarang inner join returjual "+
                     "on detreturjual.kode_brng=databarang.kode_brng "+
-                    "and returjual.no_retur_jual=detreturjual.no_retur_jual where returjual.no_retur_jual=? group by databarang.nama_brng order by returjual.tgl_retur ",
+                    "and returjual.no_retur_jual=detreturjual.no_retur_jual where returjual.no_retur_jual=? group by returjual.tgl_retur, databarang.nama_brng order by returjual.tgl_retur ",
             sqlpsobatlangsung="select besar_tagihan from tagihan_obat_langsung where no_rawat=? ",
             sqlpskamarin="select kamar_inap.kd_kamar,bangsal.nm_bangsal,kamar_inap.trf_kamar,"+
                     "kamar_inap.lama,kamar_inap.ttl_biaya as total,kamar_inap.tgl_masuk, "+
@@ -129,7 +129,7 @@ public class DlgBilingRanap extends javax.swing.JDialog {
                     "from rawat_jl_dr inner join jns_perawatan inner join kategori_perawatan "+
                     "on rawat_jl_dr.kd_jenis_prw=jns_perawatan.kd_jenis_prw and "+
                     "jns_perawatan.kd_kategori=kategori_perawatan.kd_kategori where "+
-                    "rawat_jl_dr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_jl_dr.kd_jenis_prw order by rawat_jl_dr.tgl_perawatan ",
+                    "rawat_jl_dr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_jl_dr.tgl_perawatan, rawat_jl_dr.kd_jenis_prw order by rawat_jl_dr.tgl_perawatan ",
             sqlpsralandrpr="select jns_perawatan.nm_perawatan,rawat_jl_drpr.biaya_rawat as total_byrdr,count(rawat_jl_drpr.kd_jenis_prw) as jml, "+
                     "sum(rawat_jl_drpr.biaya_rawat) as biaya,"+
                     "sum(rawat_jl_drpr.bhp) as totalbhp,"+
@@ -140,7 +140,7 @@ public class DlgBilingRanap extends javax.swing.JDialog {
                     "from rawat_jl_drpr inner join jns_perawatan inner join kategori_perawatan "+
                     "on rawat_jl_drpr.kd_jenis_prw=jns_perawatan.kd_jenis_prw and "+
                     "jns_perawatan.kd_kategori=kategori_perawatan.kd_kategori where "+
-                    "rawat_jl_drpr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_jl_drpr.kd_jenis_prw order by rawat_jl_drpr.tgl_perawatan",
+                    "rawat_jl_drpr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_jl_drpr.tgl_perawatan, rawat_jl_drpr.kd_jenis_prw order by rawat_jl_drpr.tgl_perawatan",
             sqlpsranapdokter="select jns_perawatan_inap.nm_perawatan,rawat_inap_dr.biaya_rawat as total_byrdr,count(rawat_inap_dr.kd_jenis_prw) as jml, "+
                     "sum(rawat_inap_dr.biaya_rawat) as biaya,"+
                     "sum(rawat_inap_dr.bhp) as totalbhp,"+
@@ -150,7 +150,7 @@ public class DlgBilingRanap extends javax.swing.JDialog {
                     "from rawat_inap_dr inner join jns_perawatan_inap inner join kategori_perawatan "+
                     "on rawat_inap_dr.kd_jenis_prw=jns_perawatan_inap.kd_jenis_prw and "+
                     "jns_perawatan_inap.kd_kategori=kategori_perawatan.kd_kategori where "+
-                    "rawat_inap_dr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_inap_dr.kd_jenis_prw order by rawat_inap_dr.tgl_perawatan",
+                    "rawat_inap_dr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_inap_dr.tgl_perawatan, rawat_inap_dr.kd_jenis_prw order by rawat_inap_dr.tgl_perawatan",
             sqlpsranapdrpr="select jns_perawatan_inap.nm_perawatan,rawat_inap_drpr.biaya_rawat as total_byrdr,count(rawat_inap_drpr.kd_jenis_prw) as jml, "+
                     "sum(rawat_inap_drpr.biaya_rawat) as biaya,"+
                     "sum(rawat_inap_drpr.bhp) as totalbhp,"+
@@ -161,19 +161,19 @@ public class DlgBilingRanap extends javax.swing.JDialog {
                     "from rawat_inap_drpr inner join jns_perawatan_inap inner join kategori_perawatan "+
                     "on rawat_inap_drpr.kd_jenis_prw=jns_perawatan_inap.kd_jenis_prw and "+
                     "jns_perawatan_inap.kd_kategori=kategori_perawatan.kd_kategori where "+
-                    "rawat_inap_drpr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_inap_drpr.kd_jenis_prw order by rawat_inap_drpr.tgl_perawatan",
+                    "rawat_inap_drpr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_inap_drpr.tgl_perawatan, rawat_inap_drpr.kd_jenis_prw order by rawat_inap_drpr.tgl_perawatan",
             sqlpsralanperawat="select jns_perawatan.nm_perawatan,jns_perawatan.total_byrpr,count(jns_perawatan.nm_perawatan) as jml, "+
                                            "jns_perawatan.total_byrpr*count(jns_perawatan.nm_perawatan) as biaya, rawat_jl_pr.tgl_perawatan "+
                                            "from rawat_jl_pr inner join jns_perawatan inner join kategori_perawatan  "+
                                            "on rawat_jl_pr.kd_jenis_prw=jns_perawatan.kd_jenis_prw  and "+
                                            "jns_perawatan.kd_kategori=kategori_perawatan.kd_kategori where "+
-                                           "rawat_jl_pr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_jl_pr.kd_jenis_prw order by rawat_jl_pr.tgl_perawatan",
+                                           "rawat_jl_pr.no_rawat=? and kategori_perawatan.kd_kategori=? group by rawat_jl_pr.tgl_perawatan, rawat_jl_pr.kd_jenis_prw order by rawat_jl_pr.tgl_perawatan",
             sqlpsranapperawat="select jns_perawatan_inap.nm_perawatan,jns_perawatan_inap.total_byrpr,count(jns_perawatan_inap.nm_perawatan) as jml, "+
                                            "jns_perawatan_inap.total_byrpr*count(jns_perawatan_inap.nm_perawatan) as biaya, rawat_inap_pr.tgl_perawatan "+
                                            "from rawat_inap_pr inner join jns_perawatan_inap  inner join kategori_perawatan "+
                                            "on rawat_inap_pr.kd_jenis_prw=jns_perawatan_inap.kd_jenis_prw  and "+
                                            "jns_perawatan_inap.kd_kategori=kategori_perawatan.kd_kategori where "+
-                                           "rawat_inap_pr.no_rawat=? and kategori_perawatan.kd_kategori=?  group by rawat_inap_pr.kd_jenis_prw order by rawat_inap_pr.tgl_perawatan",
+                                           "rawat_inap_pr.no_rawat=? and kategori_perawatan.kd_kategori=?  group by rawat_inap_pr.tgl_perawatan, rawat_inap_pr.kd_jenis_prw order by rawat_inap_pr.tgl_perawatan",
             sqlpsoperasi="select paket_operasi.nm_perawatan,(operasi.biayaoperator1+operasi.biayaoperator2+"+
                          "operasi.biayaoperator3+operasi.biayaasisten_operator1+operasi.biayaasisten_operator2+"+
                          "operasi.biayaasisten_operator3+operasi.biayainstrumen+operasi.biayadokter_anak+"+
@@ -4248,7 +4248,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     "(sum(detail_pemberian_obat.total)-sum(detail_pemberian_obat.embalase+detail_pemberian_obat.tuslah)) as total, detail_pemberian_obat.tgl_perawatan "+
                     "from detail_pemberian_obat inner join databarang "+
                     "on detail_pemberian_obat.kode_brng=databarang.kode_brng where "+
-                    "detail_pemberian_obat.no_rawat=? and detail_pemberian_obat.status like ? group by databarang.nama_brng,detail_pemberian_obat.biaya_obat "+
+                    "detail_pemberian_obat.no_rawat=? and detail_pemberian_obat.status like ? group by detail_pemberian_obat.tgl_perawatan, databarang.nama_brng,detail_pemberian_obat.biaya_obat "+
                     "order by detail_pemberian_obat.tgl_perawatan");
             try {
                 pscariobat.setString(1,norawat);
@@ -4356,7 +4356,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
         if(subttl>1){
             ttlobat=subttl;
-            tabModeRwJlDr.addRow(new Object[]{false,"","Total Obat & BHP : "+Valid.SetAngka(subttl),"",null,null,null,null,"TtlObat"});
+            tabModeRwJlDr.addRow(new Object[]{true,"","Total Obat & BHP : "+Valid.SetAngka(subttl),"",null,null,null,null,"TtlObat"});
         }
                 
         subttl=0;        
@@ -4366,7 +4366,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 psreturobat.setString(1,norawat);
                 rsreturobat=psreturobat.executeQuery();
                 if(rsreturobat.next()){                
-                    tabModeRwJlDr.addRow(new Object[]{false,"","Retur Obat :","",null,null,null,null,"Retur Obat"});          
+                    tabModeRwJlDr.addRow(new Object[]{true,"","Retur Obat :","",null,null,null,null,"Retur Obat"});          
                 }
                 rsreturobat.beforeFirst();
                 String tglrawat1 = null;
@@ -4378,7 +4378,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         tabModeRwJlDr.addRow(new Object[]{true,"                           ",H,"",null,null,null,null,"Obat"});
                     }
                     tabModeRwJlDr.addRow(new Object[]{
-                        false,"                           ","      "+rsreturobat.getString("nama_brng"),":",
+                        true,"                           ","      "+rsreturobat.getString("nama_brng"),":",
                         rsreturobat.getDouble("h_retur"),rsreturobat.getDouble("jml"),0,
                         rsreturobat.getDouble("ttl"),"Retur Obat"
                     });
@@ -4400,7 +4400,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }  
         if(subttl<0){
             ttlretur=subttl;
-            tabModeRwJlDr.addRow(new Object[]{false,"","Total Retur Obat : "+Valid.SetAngka(subttl),"",null,null,null,null,"TtlRetur Obat"});
+            tabModeRwJlDr.addRow(new Object[]{true,"","Total Retur Obat : "+Valid.SetAngka(subttl),"",null,null,null,null,"TtlRetur Obat"});
         }
         
         if((ttlobat-ttlretur)>0){
@@ -5259,7 +5259,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                    " sum(periksa_lab.biaya) as total,jns_perawatan_lab.kd_jenis_prw, periksa_lab.tgl_periksa "+
                    " from periksa_lab inner join jns_perawatan_lab "+
                    " on jns_perawatan_lab.kd_jenis_prw=periksa_lab.kd_jenis_prw where "+
-                   " periksa_lab.no_rawat=? and periksa_lab.status like ? group by periksa_lab.kd_jenis_prw order by periksa_lab.tgl_periksa ");
+                   " periksa_lab.no_rawat=? and periksa_lab.status like ? group by periksa_lab.tgl_periksa, periksa_lab.kd_jenis_prw order by periksa_lab.tgl_periksa ");
             try {
                 psperiksalab.setString(1,norawat);
                 if((chkRalan.isSelected()==true)&&(chkRanap.isSelected()==true)){
@@ -5335,7 +5335,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                    " sum(periksa_radiologi.biaya) as total,jns_perawatan_radiologi.kd_jenis_prw, periksa_radiologi.tgl_periksa "+
                    " from periksa_radiologi inner join jns_perawatan_radiologi "+
                    " on jns_perawatan_radiologi.kd_jenis_prw=periksa_radiologi.kd_jenis_prw where "+
-                   " periksa_radiologi.no_rawat=? and periksa_radiologi.status like ? group by periksa_radiologi.kd_jenis_prw order by periksa_radiologi.tgl_periksa ");            
+                   " periksa_radiologi.no_rawat=? and periksa_radiologi.status like ? group by periksa_radiologi.tgl_periksa, periksa_radiologi.kd_jenis_prw order by periksa_radiologi.tgl_periksa ");            
             try {
                 psperiksarad.setString(1,norawat);
                 if((chkRalan.isSelected()==true)&&(chkRanap.isSelected()==true)){
