@@ -190,11 +190,11 @@ public class DlgBilingRalan extends javax.swing.JDialog {
     private PreparedStatement pscekbilling,pscarirm,pscaripasien,psreg,pscaripoli,pscarialamat,psrekening,
             psdokterralan,pscariralandokter,pscariralanperawat,pscariralandrpr,pscarilab,pscariobat,psdetaillab,
             psobatlangsung,psreturobat,pstambahan,psbiling,pstemporary,pspotongan,psbilling,pscariradiologi,
-            pstamkur,psnota,psoperasi,psobatoperasi,psceknota,psakunbayar,psakunpiutang;
+            pstamkur,psnota,psoperasi,psobatoperasi,psceknota,psakunbayar,psakunpiutang,pskasdebit;
     private ResultSet rscekbilling,rscarirm,rscaripasien,rsreg,rscaripoli,rscarialamat,rsrekening,rsobatoperasi,
             rsdokterralan,rscariralandokter,rscariralanperawat,rscariralandrpr,rscarilab,rscariobat,rsdetaillab,
             rsobatlangsung,rsreturobat,rstambahan,rspotongan,rsbilling,rscariradiologi,rstamkur,rsoperasi,rsceknota,
-            rsakunbayar,rsakunpiutang;
+            rsakunbayar,rsakunpiutang,rskasdebit;
     private WarnaTable2 warna=new WarnaTable2();
     private WarnaTable2 warna2=new WarnaTable2();
 
@@ -2216,12 +2216,51 @@ public class DlgBilingRalan extends javax.swing.JDialog {
                     if(piutang<=0){                        
                         Sequel.menyimpan("temporary_bayar_ralan","'0','TOTAL TAGIHAN',':','','','','','"+TtlSemua.getText()+"','Tagihan','','','','','','','','',''","Tagihan"); 
                         Sequel.menyimpan("temporary_bayar_ralan","'0','PPN',':','','','','','"+Valid.SetAngka(besarppn)+"','Tagihan','','','','','','','','',''","Tagihan"); 
+                        pskasdebit = koneksi.prepareStatement(
+                                "select no_rawat, nama_bayar, besar_bayar from detail_nota_jalan "+
+                                        "where no_rawat=? order by nama_bayar");
+                        try{
+                            pskasdebit.setString(1,TNoRw.getText());
+                            rskasdebit=pskasdebit.executeQuery();
+                            while(rskasdebit.next()){                    
+                                Sequel.menyimpan("temporary_bayar_ralan","'0','','"+rskasdebit.getString(2)+"','',': "+Valid.SetAngka2(Double.parseDouble(rskasdebit.getString(3)))+"','','','','Kasdebit','','','','','','','','',''","Kasdebit"); 
+                            } 
+                        }catch (SQLException e) {
+                            System.out.println("Notifikasi Gagal dibagian CASH/DEBIT : "+e);
+                        } finally{
+                            if(rskasdebit != null){
+                                rskasdebit.close();
+                            } 
+                            if(pskasdebit != null){
+                                pskasdebit.close();
+                            } 
+                        }
                         Sequel.menyimpan("temporary_bayar_ralan","'0','TOTAL BAYAR',':','','','','','"+TagihanPPn.getText()+"','Tagihan','','','','','','','','',''","Tagihan"); 
+
                     }else if(piutang>0){                                                   
                         Sequel.menyimpan("temporary_bayar_ralan","'0','TOTAL TAGIHAN',':','','','','','"+TtlSemua.getText()+"','Tagihan','','','','','','','','',''","Tagihan"); 
                         Sequel.menyimpan("temporary_bayar_ralan","'0','PPN',':','','','','','"+Valid.SetAngka(besarppn)+"','Tagihan','','','','','','','','',''","Tagihan"); 
                         Sequel.menyimpan("temporary_bayar_ralan","'0','TAGIHAN + PPN',':','','','','','"+TagihanPPn.getText()+"','Tagihan','','','','','','','','',''","Tagihan"); 
                         Sequel.menyimpan("temporary_bayar_ralan","'0','CASH DARI PASIEN',':','','','','','"+Valid.SetAngka(bayar)+"','Tagihan','','','','','','','','',''","Tagihan"); 
+                        pskasdebit = koneksi.prepareStatement(
+                                "select no_rawat, nama_bayar, besar_bayar from detail_nota_jalan "+
+                                        "where no_rawat=? order by nama_bayar");
+                        try{
+                            pskasdebit.setString(1,TNoRw.getText());
+                            rskasdebit=pskasdebit.executeQuery();
+                            while(rskasdebit.next()){                    
+                                Sequel.menyimpan("temporary_bayar_ralan","'0','','"+rskasdebit.getString(2)+"','',': "+Valid.SetAngka2(Double.parseDouble(rskasdebit.getString(3)))+"','','','','Kasdebit','','','','','','','','',''","Kasdebit"); 
+                            } 
+                        }catch (SQLException e) {
+                            System.out.println("Notifikasi Gagal dibagian CASH/DEBIT : "+e);
+                        } finally{
+                            if(rskasdebit != null){
+                                rskasdebit.close();
+                            } 
+                            if(pskasdebit != null){
+                                pskasdebit.close();
+                            } 
+                        }
                         Sequel.menyimpan("temporary_bayar_ralan","'0','SISA PIUTANG',':','','','','','"+Valid.SetAngka(piutang)+"','Tagihan','','','','','','','','',''","Tagihan");                                           
                     }
 

@@ -30,6 +30,7 @@ import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -71,12 +72,12 @@ public class DlgBilingRanap extends javax.swing.JDialog {
             pskamarin,psbiayasekali,psbiayaharian,psreseppulang,pstambahanbiaya,pspotonganbiaya,pstemporary,
             psralandokter,psralandrpr,psranapdrpr,psranapdokter,
             psoperasi,psralanperawat,psranapperawat,
-            psperiksalab,pssudahmasuk,pskategori,psubahpenjab,psperiksarad,psanak,psnota,psservice;
+            psperiksalab,pssudahmasuk,pskategori,psubahpenjab,psperiksarad,psanak,psnota,psservice,pskasdebit;
     private ResultSet rscekbilling,rscarirm,rscaripasien,rsreg,rskamar,rscarialamat,rsdetaillab,
             rsdokterranap,rsranapdrpr,rsdokterralan,rscariobat,rsobatlangsung,rsobatoperasi,rsreturobat,rsubahpenjab,
             rskamarin,rsbiayasekali,rsbiayaharian,rsreseppulang,rstambahanbiaya,rspotonganbiaya,
             rsralandokter,rsralandrpr,rsranapdokter,rsoperasi,rsralanperawat,rsranapperawat,rsperiksalab,rskategori,
-            rsperiksarad,rsanak,rstamkur,rsrekening,rsservice,rsakunbayar,rsakunpiutang;
+            rsperiksarad,rsanak,rstamkur,rsrekening,rsservice,rsakunbayar,rsakunpiutang,rskasdebit;
     private String biaya="",tambahan="",totals="",norawatbayi="",centangdokterranap="",kd_pj="",
             rinciandokterranap="",rincianoperasi="",hariawal="",notaranap="",tampilkan_administrasi_di_billingranap="",
             Tindakan_Ranap="",Laborat_Ranap="",Radiologi_Ranap="",Obat_Ranap="",Registrasi_Ranap="",
@@ -3338,6 +3339,25 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     Sequel.menyimpan("temporary_bayar_ranap","'0','','','','','','','','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
                     Sequel.menyimpan("temporary_bayar_ranap","'0','DEPOSIT',':','','','','','<b>"+Deposit.getText()+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
                     Sequel.menyimpan("temporary_bayar_ranap","'0','BAYAR',':','','','','','<b>"+Valid.SetAngka(bayar)+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
+                        pskasdebit = koneksi.prepareStatement(
+                                "select no_rawat, nama_bayar, besar_bayar from detail_nota_inap "+
+                                        "where no_rawat=? order by nama_bayar");
+                        try{
+                            pskasdebit.setString(1,TNoRw.getText());
+                            rskasdebit=pskasdebit.executeQuery();
+                            while(rskasdebit.next()){                    
+                                Sequel.menyimpan("temporary_bayar_ranap","'0','','"+rskasdebit.getString(2)+"','',': "+Valid.SetAngka2(Double.parseDouble(rskasdebit.getString(3)))+"','','','','Kasdebit','','','','','','','','',''","Kasdebit"); 
+                            } 
+                        }catch (SQLException e) {
+                            System.out.println("Notifikasi Gagal dibagian CASH/DEBIT : "+e);
+                        } finally{
+                            if(rskasdebit != null){
+                                rskasdebit.close();
+                            } 
+                            if(pskasdebit != null){
+                                pskasdebit.close();
+                            } 
+                        }
                     Sequel.menyimpan("temporary_bayar_ranap","'0','SISA BAYAR',':','','','','','<b>"+TKembali.getText()+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
                 }else if(ChkPiutang.isSelected()==true){                                            
                     Sequel.menyimpan("temporary_bayar_ranap","'0','','','','','','','','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
@@ -3347,6 +3367,25 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     Sequel.menyimpan("temporary_bayar_ranap","'0','','','','','','','','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
                     Sequel.menyimpan("temporary_bayar_ranap","'0','DEPOSIT',':','','','','','<b>"+Deposit.getText()+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
                     Sequel.menyimpan("temporary_bayar_ranap","'0','CASH DARI PASIEN',':','','','','','<b>"+Valid.SetAngka(bayar)+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
+                        pskasdebit = koneksi.prepareStatement(
+                                "select no_rawat, nama_bayar, besar_bayar from detail_nota_inap "+
+                                        "where no_rawat=? order by nama_bayar");
+                        try{
+                            pskasdebit.setString(1,TNoRw.getText());
+                            rskasdebit=pskasdebit.executeQuery();
+                            while(rskasdebit.next()){                    
+                                Sequel.menyimpan("temporary_bayar_ranap","'0','','"+rskasdebit.getString(2)+"','',': "+Valid.SetAngka2(Double.parseDouble(rskasdebit.getString(3)))+"','','','','Kasdebit','','','','','','','','',''","Kasdebit"); 
+                            } 
+                        }catch (SQLException e) {
+                            System.out.println("Notifikasi Gagal dibagian CASH/DEBIT : "+e);
+                        } finally{
+                            if(rskasdebit != null){
+                                rskasdebit.close();
+                            } 
+                            if(pskasdebit != null){
+                                pskasdebit.close();
+                            } 
+                        }
                     Sequel.menyimpan("temporary_bayar_ranap","'0','SISA PIUTANG',':','','','','','<b>"+Valid.SetAngka(piutang)+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter");                                      
                 }                
 

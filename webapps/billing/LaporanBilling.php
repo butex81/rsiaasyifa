@@ -195,16 +195,26 @@
                       </tr>"; 			                    
                 } 
                 
+                $hasil8=bukaquery("select temp2,temp3,temp4 from temporary_bayar_ralan where temp8='Kasdebit' order by no asc");
+                while($inapdrpasien = mysql_fetch_array($hasil8)) {
+                    echo "<tr class='isi12' padding='0'>
+                       <td padding='0' width='30%'><font color='000000' size='1'  face='Tahoma'></td> 
+                       <td padding='0' width='55%' colspan='4'><font color='000000' size='1'  face='Tahoma'>$inapdrpasien[0]    $inapdrpasien[2]</font></td>   
+                       <td padding='0' width='1%'><font color='000000' size='1'  face='Tahoma'></font></td>     
+                       <td padding='0' width='14%' align='right'><font color='000000' size='2'  face='Tahoma'></font></td>              
+                      </tr>"; 
+                } 
+
                 $hasil8=bukaquery("select temp1,temp2,temp3,temp7 from temporary_bayar_ralan where temp1='TOTAL BAYAR' group by temp2 order by no asc");
                 while($inapdrpasien = mysql_fetch_array($hasil8)) {
                     echo "<tr class='isi12' padding='0'>
-                       <td padding='0' width='30%'><font color='000000' size='1'  face='Tahoma'>$inapdrpasien[0]</td> 
+                       <td padding='0' width='30%'><font color='000000' size='1'  face='Tahoma'>Terbilang</td> 
                        <td padding='0' width='55%' colspan='4'><font color='000000' size='1'  face='Tahoma'>".  Terbilang(str_replace(",","",str_replace(".","",$inapdrpasien[3])))." rupiah</font></td>   
                        <td padding='0' width='1%'><font color='000000' size='1'  face='Tahoma'></font></td>     
                        <td padding='0' width='14%' align='right'><font color='000000' size='2'  face='Tahoma'><b>$inapdrpasien[3]</b></font></td>              
                       </tr>"; 
                 } 
-                   
+                                   
             echo "
                         <tr class='isi12' padding='0'>
 			    <td colspan='7' padding='0'>

@@ -395,6 +395,11 @@ public class DlgPenjualan extends javax.swing.JDialog {
         tbDokter.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbDokter.setComponentPopupMenu(Popup);
         tbDokter.setName("tbDokter"); // NOI18N
+        tbDokter.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tbDokterFocusLost(evt);
+            }
+        });
         tbDokter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbDokterMouseClicked(evt);
@@ -1331,6 +1336,9 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             Bayar.requestFocus();
         }
     }//GEN-LAST:event_PPNKeyPressed
+
+    private void tbDokterFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbDokterFocusLost
+    }//GEN-LAST:event_tbDokterFocusLost
 
     /**
     * @param args the command line arguments
