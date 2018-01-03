@@ -4851,7 +4851,10 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             } catch (Exception e) {
                 System.out.println("Notifikasi : "+e);
             } 
-            TtlSemua.setText(Valid.SetAngka3(ttl));
+            //TtlSemua.setText(Valid.SetAngka3(ttl));
+            ttl = Valid.roundUp(ttl,1000);
+            TtlSemua.setText(Valid.SetAngka3(ttl));        
+
         }        
     }
     
@@ -4933,7 +4936,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
         
         tagihanppn=besarppn+total;
-        TagihanPPn.setText(Valid.SetAngka3(tagihanppn));
+        //TagihanPPn.setText(Valid.SetAngka3(tagihanppn));
+        tagihanppn = Valid.roundUp(tagihanppn,1000);
+        TagihanPPn.setText(Valid.SetAngka3(tagihanppn));        
         
         if(piutang<=0){
             kekurangan=(bayar+uangdeposit+besarppn)-tagihanppn;
@@ -4944,7 +4949,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 jLabel6.setText("Sisa Bayar : Rp.");
             }
                  
-            TKembali.setText(Valid.SetAngka3(kekurangan));            
+            //TKembali.setText(Valid.SetAngka3(kekurangan));  
+            kekurangan = Valid.roundUp(kekurangan,1000);
+            TKembali.setText(Valid.SetAngka3(kekurangan));
         }else{
             kekurangan=(tagihanppn-(bayar+uangdeposit+besarppn)-piutang)* -1;
             jLabel5.setText("Cash dari Pasien : Rp.");
@@ -4954,7 +4961,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 jLabel6.setText("Kekurangan : Rp.");
             }
                 
-            TKembali.setText(Valid.SetAngka3(kekurangan));  
+            //TKembali.setText(Valid.SetAngka3(kekurangan));  
+            kekurangan = Valid.roundUp(kekurangan,1000);
+            TKembali.setText(Valid.SetAngka3(kekurangan));        
         }  
     }   
 

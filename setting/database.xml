@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>KhanzaHMS</comment>
-    <entry key="HOST">haamboo.com</entry>
+    <entry key="HOST">51.15.44.161</entry>
     <entry key="DATABASE">haamboo_sik</entry>
     <entry key="PORT">3306</entry>
     <entry key="USER">haamboo_simrs</entry>
@@ -24,5 +24,5 @@
     <entry key="IPPRINTERTRACER">10.50.150.57/label2</entry>
     <entry key="URLAPIINHEALTH">http://dummy.inhealth.co.id/pelkesws2</entry>
     <entry key="TOKENINHEALTH">inh_aba40329b828c943e91f2e5c7f9f1f1b</entry>
-    <entry key="PEMBULATANHARGAOBAT">no</entry>
+    <entry key="PEMBULATANHARGAOBAT">yes</entry>
 </properties>

@@ -3485,7 +3485,7 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                         if(!tabModeAkunBayar.getValueAt(tbAkunBayar.getSelectedRow(),2).toString().equals("")){
                             tbAkunBayar.setValueAt(
                                     Valid.roundUp((Valid.SetAngka(tbAkunBayar.getValueAt(tbAkunBayar.getSelectedRow(),3).toString())/100)*
-                                    Valid.SetAngka(tbAkunBayar.getValueAt(tbAkunBayar.getSelectedRow(),2).toString()),100),tbAkunBayar.getSelectedRow(),4);
+                                    Valid.SetAngka(tbAkunBayar.getValueAt(tbAkunBayar.getSelectedRow(),2).toString()),1000),tbAkunBayar.getSelectedRow(),4);
                         }else{
                             tbAkunBayar.setValueAt("",tbAkunBayar.getSelectedRow(),4);                        
                         }                            
@@ -4534,7 +4534,7 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         if(subttl>0){ 
             if(tampilkan_ppnobat_ralan.equals("Yes")){
-                ppnobat=Valid.roundUp(subttl*0.1,100);
+                ppnobat=Valid.roundUp(subttl*0.1,1000);
                 tabModeRwJlDr.addRow(new Object[]{false,"","PPN Obat",":",ppnobat,1,0,ppnobat,"Obat"});
                 tabModeRwJlDr.addRow(new Object[]{true,"",""+Valid.SetAngka3(subttl+ppnobat),"",null,null,null,null,"TtlObat"});            
             }else{
@@ -4591,7 +4591,11 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             }                                
             ttl=ttl+y;             
         }
-        TtlSemua.setText(Valid.SetAngka3(ttl));
+        
+        //TtlSemua.setText(Valid.SetAngka3(ttl));
+            ttl = Valid.roundUp(ttl,1000);
+            //String total2 = Valid.SetAngka3(String.valueOf(ax));
+            TtlSemua.setText(Valid.SetAngka3(ttl));        
     }    
     
     
@@ -4647,7 +4651,7 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             
             if(!tabModeAkunBayar.getValueAt(r,4).toString().equals("")){
                 try {
-                    besarppn=besarppn+Valid.roundUp(Double.parseDouble(tabModeAkunBayar.getValueAt(r,4).toString()),100); 
+                    besarppn=besarppn+Valid.roundUp(Double.parseDouble(tabModeAkunBayar.getValueAt(r,4).toString()),1000); 
                 } catch (Exception e) {
                     besarppn=besarppn+0;
                 }               
@@ -4671,7 +4675,9 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         
         tagihanppn=besarppn+total;
-        TagihanPPn.setText(Valid.SetAngka3(tagihanppn));
+        //TagihanPPn.setText(Valid.SetAngka3(tagihanppn));
+        tagihanppn = Valid.roundUp(tagihanppn,1000);
+        TagihanPPn.setText(Valid.SetAngka3(tagihanppn));        
         
         if(piutang<=0){
             kekurangan=(bayar+besarppn)-tagihanppn;
@@ -4682,7 +4688,9 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 jLabel6.setText("Kembali : Rp.");
             }
                  
-            TKembali.setText(Valid.SetAngka3(kekurangan));            
+            //TKembali.setText(Valid.SetAngka3(kekurangan));            
+            kekurangan = Valid.roundUp(kekurangan,1000);
+            TKembali.setText(Valid.SetAngka3(kekurangan));        
         }else{
             kekurangan=(tagihanppn-(bayar+besarppn)-piutang)* -1;
             jLabel5.setText("Cash dari Pasien : Rp.");
@@ -4692,7 +4700,9 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 jLabel6.setText("Kekurangan : Rp.");
             }
                 
-            TKembali.setText(Valid.SetAngka3(kekurangan));  
+            //TKembali.setText(Valid.SetAngka3(kekurangan));  
+            kekurangan = Valid.roundUp(kekurangan,1000);
+            TKembali.setText(Valid.SetAngka3(kekurangan));        
         }  
     }
     
@@ -5254,7 +5264,7 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                         
                         if(!tbAkunBayar.getValueAt(r,4).toString().equals("")){
                             try {
-                                besarppn=Valid.roundUp(Double.parseDouble(tbAkunBayar.getValueAt(r,4).toString()),100); 
+                                besarppn=Valid.roundUp(Double.parseDouble(tbAkunBayar.getValueAt(r,4).toString()),1000); 
                             } catch (Exception e) {
                                 besarppn=0;
                             }               

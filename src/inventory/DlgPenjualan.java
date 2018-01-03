@@ -1680,6 +1680,8 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 }
                 ttl=ttl+y;
             }
+            //LTotal.setText(Valid.SetAngka(ttl));
+            ttl = Valid.roundUp(ttl,1000);
             LTotal.setText(Valid.SetAngka(ttl));
             isKembali();
         }
@@ -1705,8 +1707,12 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         
         tagihanppn=besarppn+total;
-        TagihanPPn.setText(Valid.SetAngka(tagihanppn));        
-        LKembali.setText(Valid.SetAngka(bayar-tagihanppn));     
+        //TagihanPPn.setText(Valid.SetAngka(tagihanppn));        
+        tagihanppn = Valid.roundUp(tagihanppn,1000);
+        TagihanPPn.setText(Valid.SetAngka3(tagihanppn));        
+        //LKembali.setText(Valid.SetAngka(bayar-tagihanppn));     
+        double kembalian = Valid.roundUp(bayar-tagihanppn,1000);
+        LKembali.setText(Valid.SetAngka3(kembalian));        
     }
     
     public void isCek(){

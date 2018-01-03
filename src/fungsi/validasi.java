@@ -1004,23 +1004,41 @@ public final class validasi {
             return x;
     }
     
+    /**
+     *
+     * @param number
+     * @param multiple
+     * @return
+     */
     public double roundUp(double number, int multiple) {
-        if(PEMBULATANHARGAOBAT.equals("yes")){
+        //if(PEMBULATANHARGAOBAT.equals("yes")){
             result = multiple;
             if (number % multiple == 0) {
-                return (int) number;
+                result = (int) number;
+                //return (int) number;
             }
-
-            if (number % multiple != 0) {
-                int division = (int) ((number / multiple) + 1);
-                result = division * multiple;
+            else if (number < multiple) {
+                //int division = (int) ((number / multiple) + 1);
+                result = (int) (Math.round(number/multiple)*multiple);
+                //result = division * multiple;
+            }
+            else if (number < 0) {
+                //int division = (int) ((number / multiple) + 1);
+                number = (int) (number * -1);
+                result = (int) (Math.round((number+multiple/2)/multiple)*multiple);
+                result = result * -1;
+                //result = division * multiple;
+            }
+            else if (number % multiple != 0) {
+                //int division = (int) ((number / multiple) + 1);
+                result = (int) (Math.round((number+multiple/2)/multiple)*multiple);
+                //result = division * multiple;
             }
             return result;
-        }else{
-            return Math.round(number);
-        }
+        //}else{
+        //    return Math.round(number);
+        //}
 
     }
 
-       
 }
