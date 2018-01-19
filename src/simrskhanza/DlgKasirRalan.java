@@ -2195,7 +2195,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                     }                    
                 }else if(i==4){
                     if(var.getkasir_ralan()==true){
-                        MnSudahActionPerformed(null);
+                        //MnSudahActionPerformed(null);
                         tampilkasir();
                     }                    
                 }
@@ -2232,7 +2232,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                     }                    
                 }else if(i==4){
                     if(var.getkasir_ralan()==true){
-                        MnSudahActionPerformed(null);
+                        //MnSudahActionPerformed(null);
                         tampilkasir();
                     }                    
                 }
@@ -2390,7 +2390,7 @@ private void MnBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                                         psotomatis2.close();
                                                     }
                                                 }
-                                                MnSudahActionPerformed(null);
+                                                //MnSudahActionPerformed(null);
                                             }
                                         }else{
                                             psotomatis.setString(1,tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),0).toString());
@@ -2421,7 +2421,7 @@ private void MnBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                                             psotomatis2.close();
                                                         }
                                                     }
-                                                    MnSudahActionPerformed(null);
+                                                    //MnSudahActionPerformed(null);
                                                 }
                                             }
                                         }   
@@ -2482,7 +2482,7 @@ private void MnBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                                     psotomatis2.close();
                                                 }
                                             }
-                                            MnSudahActionPerformed(null);
+                                            //MnSudahActionPerformed(null);
                                         }
                                     }else{
                                         psotomatis.setString(1,tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),0).toString());
@@ -2513,7 +2513,7 @@ private void MnBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                                         psotomatis2.close();
                                                     }
                                                 }
-                                                MnSudahActionPerformed(null);
+                                                //MnSudahActionPerformed(null);
                                             }
                                         }
                                     }

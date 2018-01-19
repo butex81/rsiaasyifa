@@ -712,10 +712,10 @@ public class DlgBilingRalan extends javax.swing.JDialog {
         jLabel12 = new widget.Label();
         TagihanPPn = new widget.TextBox();
         chkAdministrasi = new widget.CekBox();
-        chkSarpras = new widget.CekBox();
         scrollPane3 = new widget.ScrollPane();
         tbAkunBayar = new widget.Table();
         jLabel6 = new widget.Label();
+        chkSarpras = new widget.CekBox();
         scrollPane4 = new widget.ScrollPane();
         tbAkunPiutang = new widget.Table();
         jLabel16 = new widget.Label();
@@ -723,6 +723,7 @@ public class DlgBilingRalan extends javax.swing.JDialog {
         BtnCariBayar = new widget.Button();
         TCari1 = new widget.TextBox();
         btnCariPiutang = new widget.Button();
+        chkBulat = new widget.CekBox();
         panelGlass8 = new widget.panelisi();
         BtnSimpan = new widget.Button();
         BtnNota = new widget.Button();
@@ -1638,7 +1639,7 @@ public class DlgBilingRalan extends javax.swing.JDialog {
         panelGlass1.add(jLabel4);
 
         DTPTgl.setForeground(new java.awt.Color(100, 100, 100));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-08-2017 15:26:49" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-01-2018 16:25:21" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -1655,7 +1656,6 @@ public class DlgBilingRalan extends javax.swing.JDialog {
         TabRawat.setBackground(new java.awt.Color(250, 255, 245));
         TabRawat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 235, 225)));
         TabRawat.setForeground(new java.awt.Color(50, 70, 40));
-        TabRawat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         TabRawat.setName("TabRawat"); // NOI18N
 
         Scroll.setComponentPopupMenu(jPopupMenu1);
@@ -1834,19 +1834,6 @@ public class DlgBilingRalan extends javax.swing.JDialog {
         panelBayar.add(chkAdministrasi);
         chkAdministrasi.setBounds(710, 8, 90, 23);
 
-        chkSarpras.setSelected(true);
-        chkSarpras.setText("Sarpras");
-        chkSarpras.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        chkSarpras.setName("chkSarpras"); // NOI18N
-        chkSarpras.setOpaque(false);
-        chkSarpras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkSarprasActionPerformed(evt);
-            }
-        });
-        panelBayar.add(chkSarpras);
-        chkSarpras.setBounds(805, 8, 90, 23);
-
         scrollPane3.setComponentPopupMenu(PopupBayar);
         scrollPane3.setName("scrollPane3"); // NOI18N
         scrollPane3.setOpaque(true);
@@ -1885,6 +1872,19 @@ public class DlgBilingRalan extends javax.swing.JDialog {
         jLabel6.setPreferredSize(new java.awt.Dimension(95, 23));
         panelBayar.add(jLabel6);
         jLabel6.setBounds(20, 377, 90, 23);
+
+        chkSarpras.setSelected(true);
+        chkSarpras.setText("Sarpras");
+        chkSarpras.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkSarpras.setName("chkSarpras"); // NOI18N
+        chkSarpras.setOpaque(false);
+        chkSarpras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSarprasActionPerformed(evt);
+            }
+        });
+        panelBayar.add(chkSarpras);
+        chkSarpras.setBounds(820, 8, 90, 23);
 
         scrollPane4.setComponentPopupMenu(PopupPiutang);
         scrollPane4.setName("scrollPane4"); // NOI18N
@@ -1980,6 +1980,19 @@ public class DlgBilingRalan extends javax.swing.JDialog {
         });
         panelBayar.add(btnCariPiutang);
         btnCariPiutang.setBounds(875, 222, 25, 23);
+
+        chkBulat.setSelected(true);
+        chkBulat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkBulat.setLabel("Pembulatan");
+        chkBulat.setName("chkBulat"); // NOI18N
+        chkBulat.setOpaque(false);
+        chkBulat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBulatActionPerformed(evt);
+            }
+        });
+        panelBayar.add(chkBulat);
+        chkBulat.setBounds(360, 376, 90, 23);
 
         TabRawat.addTab(".: Pembayaran ", panelBayar);
 
@@ -3574,8 +3587,11 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
     }//GEN-LAST:event_ppBersihkan1ActionPerformed
 
- 
+    private void chkBulatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBulatActionPerformed
+        isRawat();
+    }//GEN-LAST:event_chkBulatActionPerformed
 
+ 
     /**
     * @param args the command line arguments
     */
@@ -3659,6 +3675,7 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Button btnCariPoli;
     private widget.Button btnPenjab;
     private widget.CekBox chkAdministrasi;
+    private widget.CekBox chkBulat;
     private widget.CekBox chkLaborat;
     private widget.CekBox chkObat;
     private widget.CekBox chkPotongan;
@@ -4593,9 +4610,11 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
         
         //TtlSemua.setText(Valid.SetAngka3(ttl));
+        if(chkBulat.isSelected()==true){
             ttl = Valid.roundUp(ttl,1000);
-            //String total2 = Valid.SetAngka3(String.valueOf(ax));
-            TtlSemua.setText(Valid.SetAngka3(ttl));        
+        }     
+        //String total2 = Valid.SetAngka3(String.valueOf(ax));
+        TtlSemua.setText(Valid.SetAngka3(ttl));        
     }    
     
     
@@ -4675,9 +4694,10 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         
         tagihanppn=besarppn+total;
-        //TagihanPPn.setText(Valid.SetAngka3(tagihanppn));
-        tagihanppn = Valid.roundUp(tagihanppn,1000);
-        TagihanPPn.setText(Valid.SetAngka3(tagihanppn));        
+        if(chkBulat.isSelected()==true){
+            tagihanppn = Valid.roundUp(tagihanppn,1000);
+        }
+        TagihanPPn.setText(Valid.SetAngka3(tagihanppn));                    
         
         if(piutang<=0){
             kekurangan=(bayar+besarppn)-tagihanppn;
@@ -4687,9 +4707,10 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             }else{
                 jLabel6.setText("Kembali : Rp.");
             }
-                 
-            //TKembali.setText(Valid.SetAngka3(kekurangan));            
-            kekurangan = Valid.roundUp(kekurangan,1000);
+            
+            if(chkBulat.isSelected()==true){
+                kekurangan = Valid.roundUp(kekurangan,1000);
+            }
             TKembali.setText(Valid.SetAngka3(kekurangan));        
         }else{
             kekurangan=(tagihanppn-(bayar+besarppn)-piutang)* -1;
@@ -4700,8 +4721,9 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 jLabel6.setText("Kekurangan : Rp.");
             }
                 
-            //TKembali.setText(Valid.SetAngka3(kekurangan));  
-            kekurangan = Valid.roundUp(kekurangan,1000);
+            if(chkBulat.isSelected()==true){
+                kekurangan = Valid.roundUp(kekurangan,1000);
+            }
             TKembali.setText(Valid.SetAngka3(kekurangan));        
         }  
     }

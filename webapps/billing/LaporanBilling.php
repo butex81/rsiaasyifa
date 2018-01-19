@@ -224,8 +224,8 @@
                                      <td padding='0' width='50%' align='center'><font color='000000' size='1'  face='Tahoma'>".getOne("select kabupaten from setting").", ".$tanggal."</font></td>              
                                     </tr>  
                                     <tr class='isi12' padding='0'>
-                                     <td padding='0' width='50%' align=center><font color='000000' size='1'  face='Tahoma'>Kasir</td> 
-                                     <td padding='0' width='50%' align='center'><font color='000000' size='1'  face='Tahoma'>Penanggung Jawab Pasien</font></td>              
+                                     <td padding='0' width='50%' align=center><font color='000000' size='1'  face='Tahoma'></td> 
+                                     <td padding='0' width='50%' align='center'><font color='000000' size='1'  face='Tahoma'>Kasir</font></td>              
                                     </tr>  
                                     <tr class='isi12' padding='0'>
                                      <td padding='0' width='50%'><font color='000000' size='1'  face='Tahoma'>&nbsp;</td> 
@@ -236,6 +236,7 @@
                                      <td padding='0' width='50%' align='right'><font color='000000' size='1'  face='Tahoma'></font></td>              
                                     </tr> 
                                     <tr class='isi12' padding='0'>
+                                     <td padding='0' width='50%' align='center'><font color='000000' size='1'  face='Tahoma'></font></td>              
                                      <td padding='0' width='50%' align=center><font color='000000' size='1'  face='Tahoma'>( ";
                                         if(getOne("select count(nama) from petugas where nip='$petugas'")>=1){
 											echo getOne("select nama from petugas where nip='$petugas'");                                            
@@ -243,7 +244,6 @@
                                             echo " .............................. ";
                                         }
                                         echo " )</td>     
-                                     <td padding='0' width='50%' align='center'><font color='000000' size='1'  face='Tahoma'>(.............)</font></td>              
                                     </tr>   
                               </table>
                             </td>
