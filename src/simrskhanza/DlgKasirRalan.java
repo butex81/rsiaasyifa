@@ -55,7 +55,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                 "jns_perawatan.tarif_tindakandr,jns_perawatan.total_byrdr,jns_perawatan.kso,jns_perawatan.menejemen from set_otomatis_tindakan_ralan "+
                 "inner join jns_perawatan on set_otomatis_tindakan_ralan.kd_jenis_prw=jns_perawatan.kd_jenis_prw "+
                 "where set_otomatis_tindakan_ralan.kd_dokter=? and set_otomatis_tindakan_ralan.kd_pj=?",
-            namadokter="",namapoli="";
+            namadokter="",namapoli="",alasan="";
     public  DlgBilingRalan billing=new DlgBilingRalan(null,false);
     private int i=0,pilihan=0,sudah=0;
     public DlgKamarInap kamarinap=new DlgKamarInap(null,false);
@@ -71,7 +71,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         setSize(885,674);
 
         Object[] rowkasir={"Kd.Dokter","Dokter Dituju","Nomer RM","Pasien","Poliklinik","Penanggung Jawab","Alamat P.J.","Hubungan P.J.",
-                           "Biaya Regristrasi","Jenis Bayar","Status","No.Rawat","Tanggal","Jam","No.Reg"};
+                           "Biaya Regristrasi","Jenis Bayar","Status","No.Rawat","Tanggal","Jam","No.Reg","Pembatalan","Petugas"};
         tabModekasir=new DefaultTableModel(null,rowkasir){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -80,7 +80,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         tbKasirRalan.setPreferredScrollableViewportSize(new Dimension(800,800));
         tbKasirRalan.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 15; i++) {
+        for (i = 0; i < 17; i++) {
             TableColumn column = tbKasirRalan.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(70);
@@ -112,7 +112,11 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                 column.setPreferredWidth(55);
             }else if(i==14){
                 column.setPreferredWidth(47);
-            }
+            }else if(i==15){
+                column.setPreferredWidth(180);
+            }else if(i==16){
+                column.setPreferredWidth(140);
+            }    
         }
         tbKasirRalan.setDefaultRenderer(Object.class, new WarnaTable());
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
@@ -2568,6 +2572,7 @@ private void MnSudahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
             }else {
                Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Sudah'");
+               Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"alasan=''");
                 if(tabModekasir.getRowCount()!=0){tampilkasir();}
             }
             
@@ -2582,6 +2587,7 @@ private void MnBelumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
            }else {
                 Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Belum'");
+                Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"alasan=''");
                 if(tabModekasir.getRowCount()!=0){tampilkasir();}
            }
             
@@ -2596,6 +2602,7 @@ private void MnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
             }else {
                 Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Bayar'");
+                Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"alasan=''");
                 if(tabModekasir.getRowCount()!=0){tampilkasir();}
             }
             
@@ -2997,14 +3004,21 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     }//GEN-LAST:event_MnDiagnosaActionPerformed
 
     private void MnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnBatalActionPerformed
-        if(TNoRw.getText().trim().equals("")){
-            Valid.textKosong(TNoRw,"No.Rawat");
-        }else{
-            if(Sequel.cariInteger("select count(no_rawat) from kamar_inap where no_rawat=?",TNoRw.getText())>0){
-                JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
-            }else {
-                Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Batal'");
-                if(tabModekasir.getRowCount()!=0){tampilkasir();}
+        alasan = (String)JOptionPane.showInputDialog(null,"Masukkan alasan kenapa dibatalkan","Pembatalan",JOptionPane.QUESTION_MESSAGE);
+        //if(alasan == null || (alasan != null && ("".equals(alasan))))
+        if(alasan != null && (!"".equals(alasan)))
+        {    
+            if(TNoRw.getText().trim().equals("")){
+                Valid.textKosong(TNoRw,"No.Rawat");
+            }else{
+                if(Sequel.cariInteger("select count(no_rawat) from kamar_inap where no_rawat=?",TNoRw.getText())>0){
+                    JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
+                }else {
+                    Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Batal'");
+                    Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"alasan='"+alasan+"'");
+                    Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"petugas='"+var.getkode()+"'");
+                    if(tabModekasir.getRowCount()!=0){tampilkasir();}
+                }
             }
         }
     }//GEN-LAST:event_MnBatalActionPerformed
@@ -3502,6 +3516,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
             }else {
                 Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Dirujuk'");
+                Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"alasan=''");
                 MnRujukActionPerformed(evt);
                 if(tabModekasir.getRowCount()!=0){tampilkasir();}
             }
@@ -3706,7 +3721,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         try{   
             pskasir=koneksi.prepareStatement("select reg_periksa.no_reg,reg_periksa.no_rawat,reg_periksa.tgl_registrasi,reg_periksa.jam_reg,"+
                 "reg_periksa.kd_dokter,dokter.nm_dokter,reg_periksa.no_rkm_medis,pasien.nm_pasien,poliklinik.nm_poli,"+
-                "reg_periksa.p_jawab,reg_periksa.almt_pj,reg_periksa.hubunganpj,reg_periksa.biaya_reg,reg_periksa.stts,penjab.png_jawab "+
+                "reg_periksa.p_jawab,reg_periksa.almt_pj,reg_periksa.hubunganpj,reg_periksa.biaya_reg,reg_periksa.stts,penjab.png_jawab,reg_periksa.alasan,reg_periksa.petugas "+
                 "from reg_periksa inner join dokter inner join pasien inner join poliklinik inner join penjab "+
                 "on reg_periksa.kd_dokter=dokter.kd_dokter and reg_periksa.kd_pj=penjab.kd_pj "+
                 "and reg_periksa.no_rkm_medis=pasien.no_rkm_medis and reg_periksa.kd_poli=poliklinik.kd_poli  where  "+
@@ -3810,7 +3825,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                                    rskasir.getString(14),
                                    rskasir.getString("no_rawat"),
                                    rskasir.getString("tgl_registrasi"),
-                                   rskasir.getString("jam_reg"),rskasir.getString(1)});
+                                   rskasir.getString("jam_reg"),rskasir.getString(1),rskasir.getString(16),rskasir.getString(17)});
                 }                
             } catch(Exception e){
                 System.out.println("Notifikasi : "+e);
