@@ -664,23 +664,27 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             BtnSeek2.requestFocus();
         }else if(tabMode.getRowCount()!=0){
             biaya = (String)JOptionPane.showInputDialog(null,"Masukkan No Invoice Penagihan","No Invoice",JOptionPane.QUESTION_MESSAGE);
-            Map<String, Object> param = new HashMap<>(); 
-                param.put("namars",var.getnamars());
-                param.put("alamatrs",var.getalamatrs());
-                param.put("kotars",var.getkabupatenrs());
-                param.put("propinsirs",var.getpropinsirs());
-                param.put("kontakrs",var.getkontakrs());
-                param.put("emailrs",var.getemailrs());   
-                param.put("logo",Sequel.cariGambar("select logo from setting")); 
-                param.put("noinvoice",biaya);
-                param.put("namaasuransi",nmpenjab.getText());
-                param.put("alamatasuransi",Sequel.cariIsi("select alamat from penjab where kd_pj='"+kdpenjab.getText()+"'"));
-                param.put("periode",Tgl1.getSelectedItem()+" sampai "+Tgl2.getSelectedItem());
-                param.put("jumlah","Rp. "+LCount.getText());
-                int terbilang = (int) (sisapiutang);
-                param.put("terbilang",info_terbilang(terbilang)+" Rupiah");
-                
-            Valid.MyReport("rptInvoicePiutangAsuransi.jrxml","report","::[ Invoice Piutang ]::","select * from penjab",param);
+            if(biaya != null && (!"".equals(biaya)))
+            {    
+                Sequel.menyimpantf2("invoice","?,?,?,?,?","Invoice",5,new String[]{Valid.SetTgl(Tgl1.getSelectedItem()+""),Valid.SetTgl(Tgl2.getSelectedItem()+""),nmpenjab.getText(),TCari.getText(),biaya});
+                Map<String, Object> param = new HashMap<>(); 
+                    param.put("namars",var.getnamars());
+                    param.put("alamatrs",var.getalamatrs());
+                    param.put("kotars",var.getkabupatenrs());
+                    param.put("propinsirs",var.getpropinsirs());
+                    param.put("kontakrs",var.getkontakrs());
+                    param.put("emailrs",var.getemailrs());   
+                    param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                    param.put("noinvoice",biaya);
+                    param.put("namaasuransi",nmpenjab.getText());
+                    param.put("alamatasuransi",Sequel.cariIsi("select alamat from penjab where kd_pj='"+kdpenjab.getText()+"'"));
+                    param.put("periode",Tgl1.getSelectedItem()+" sampai "+Tgl2.getSelectedItem());
+                    param.put("jumlah","Rp. "+LCount.getText());
+                    int terbilang = (int) (sisapiutang);
+                    param.put("terbilang",info_terbilang(terbilang)+" Rupiah");
+
+                Valid.MyReport("rptInvoicePiutangAsuransi.jrxml","report","::[ Invoice Piutang ]::","select * from penjab",param);
+            }
         }
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_mnInvoiceActionPerformed

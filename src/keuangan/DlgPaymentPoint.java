@@ -45,6 +45,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
     private double allmandiri=0,pagimandiri=0,siangmandiri=0,soremandiri=0,malammandiri=0;
     private double allbca=0,pagibca=0,siangbca=0,sorebca=0,malambca=0;
     private double allbni=0,pagibni=0,siangbni=0,sorebni=0,malambni=0;
+    private double piutang=0,allpiutang=0,pagipiutang=0,siangpiutang=0,sorepiutang=0,malampiutang=0;
     private int i;
     private String shift="",tanggal2="",nonota="",pscash="",psmandiri="",psbca="",psbni="";
 
@@ -57,14 +58,14 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
         this.setLocation(8,1);
         setSize(885,674);
 
-        Object[] rowRwJlDr={"No.","Tanggal","Shift","No.Rawat/No.Nota","Nama Pasien","Jumlah Tagihan","Bayar Tunai","Debit Mandiri","Debit BCA","Debit BNI","Petugas"};
+        Object[] rowRwJlDr={"No.","Tanggal","Shift","No.Rawat/No.Nota","Nama Pasien","Jumlah Tagihan","Bayar Tunai","Debit Mandiri","Debit BCA","Debit BNI","Piutang","Petugas"};
         tabMode=new DefaultTableModel(null,rowRwJlDr){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
              Class[] types = new Class[] {
                 java.lang.String.class,java.lang.String.class,java.lang.String.class,
                 java.lang.String.class,java.lang.String.class,java.lang.Double.class,
                // java.lang.String.class,java.lang.String.class,java.lang.String.class,java.lang.String.class,
-                java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,
+                java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,java.lang.Double.class,
                 java.lang.String.class
              };
              @Override
@@ -77,7 +78,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
         Tabel.setPreferredScrollableViewportSize(new Dimension(500,500));
         Tabel.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 11; i++) {
+        for (i = 0; i < 12; i++) {
             TableColumn column = Tabel.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(30);
@@ -100,6 +101,8 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
             }else if(i==9){
                 column.setPreferredWidth(110);
             }else if(i==10){
+                column.setPreferredWidth(110);
+            }else if(i==11){
                 column.setPreferredWidth(100);
             }
         }
@@ -602,7 +605,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                             "where tgl_bayar between ? and ? and nama_pasien like ? or "+
                             "tgl_bayar between ? and ? and no_nota like ? order by tgl_bayar,no_nota"); */
                     ps = koneksi.prepareStatement(
-                            "select tagihan_sadewa.no_nota,tagihan_sadewa.tgl_bayar,tagihan_sadewa.nama_pasien,tagihan_sadewa.jumlah_bayar, "+
+                            "select tagihan_sadewa.no_nota,tagihan_sadewa.tgl_bayar,tagihan_sadewa.nama_pasien,tagihan_sadewa.jumlah_tagihan, "+
                             "    if((select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%cash%') is null, "+
                             "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%cash%'),(select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%cash%')) AS bayar_tunai, "+
                             "    if((select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%mandiri%') is null, "+
@@ -611,6 +614,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                             "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%bca%'),(select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%bca%')) AS bayar_bca, "+
                             "    if((select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%bni%') is null, "+
                             "                    (select detail_nota_jalan.besar_bayar from detail_nota_jalan where detail_nota_jalan.no_rawat=tagihan_sadewa.no_nota and detail_nota_jalan.nama_bayar like '%bni%'),(select detail_nota_inap.besar_bayar from detail_nota_inap where detail_nota_inap.no_rawat=tagihan_sadewa.no_nota and detail_nota_inap.nama_bayar like '%bni%')) AS bayar_bni, "+
+                            "    (select detail_piutang_pasien.totalpiutang from detail_piutang_pasien where detail_piutang_pasien.no_rawat=tagihan_sadewa.no_nota) AS bayar_piutang, "+
                             "    tagihan_sadewa.petugas "+
                             "from tagihan_sadewa "+
                             "where tgl_bayar between ? and ? and nama_pasien like ? or "+
@@ -663,37 +667,44 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                                         psbni="0";
                                     }
                                 } */
+                            //piutang=Double.parseDouble(Sequel.cariIsi("select totalpiutang from detail_piutang_pasien where no_rawat=?",rs.getString("no_nota")));
 
                             if(rsjamshift.getString("shift").equals("Pagi")){
-                                pagi=pagi+rs.getDouble("jumlah_bayar");
+                                pagi=pagi+rs.getDouble("jumlah_tagihan");
                                 pagicash=pagicash+rs.getDouble("bayar_tunai");
                                 pagimandiri=pagimandiri+rs.getDouble("bayar_mandiri");
                                 pagibca=pagibca+rs.getDouble("bayar_bca");
                                 pagibni=pagibni+rs.getDouble("bayar_bni");
+                                pagipiutang=pagipiutang+rs.getDouble("bayar_piutang");
                             }else if(rsjamshift.getString("shift").equals("Siang")){
-                                siang=siang+rs.getDouble("jumlah_bayar");
+                                siang=siang+rs.getDouble("jumlah_tagihan");
                                 siangcash=siangcash+rs.getDouble("bayar_tunai");
                                 siangmandiri=siangmandiri+rs.getDouble("bayar_mandiri");
                                 siangbca=siangbca+rs.getDouble("bayar_bca");
                                 siangbni=siangbni+rs.getDouble("bayar_bni");
+                                siangpiutang=siangpiutang+rs.getDouble("bayar_piutang");
                             }else if(rsjamshift.getString("shift").equals("Sore")){
-                                sore=sore+rs.getDouble("jumlah_bayar");
+                                sore=sore+rs.getDouble("jumlah_tagihan");
                                 sorecash=sorecash+rs.getDouble("bayar_tunai");
                                 soremandiri=soremandiri+rs.getDouble("bayar_mandiri");
                                 sorebca=sorebca+rs.getDouble("bayar_bca");
                                 sorebni=sorebni+rs.getDouble("bayar_bni");
+                                sorepiutang=sorepiutang+rs.getDouble("bayar_piutang");
                             }else if(rsjamshift.getString("shift").equals("Malam")){
-                                malam=malam+rs.getDouble("jumlah_bayar");
+                                malam=malam+rs.getDouble("jumlah_tagihan");
                                 malamcash=malamcash+rs.getDouble("bayar_tunai");
                                 malammandiri=malammandiri+rs.getDouble("bayar_mandiri");
                                 malambca=malambca+rs.getDouble("bayar_bca");
                                 malambni=malambni+rs.getDouble("bayar_bni");
+                                malampiutang=malampiutang+rs.getDouble("bayar_piutang");
                             }
-                            all=all+rs.getDouble("jumlah_bayar");
+
+                            all=all+rs.getDouble("jumlah_tagihan");
                             allcash=allcash+rs.getDouble("bayar_tunai");
                             allmandiri=allmandiri+rs.getDouble("bayar_mandiri");
                             allbca=allbca+rs.getDouble("bayar_bca");
                             allbni=allbni+rs.getDouble("bayar_bni");
+                            allpiutang=allpiutang+rs.getDouble("bayar_piutang");
                             if(CmbStatus.getSelectedItem().toString().equals("Semua")){
                                 nonota=Sequel.cariIsi("select no_nota from nota_inap where no_rawat=?",rs.getString("no_nota"));
                                 if(nonota.equals("")){
@@ -703,7 +714,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                                     }
                                 }
                                 tabMode.addRow(new Object[]{
-                                    i,rs.getString("tgl_bayar"),rsjamshift.getString("shift"),nonota,rs.getString("nama_pasien"),rs.getDouble("jumlah_bayar"),rs.getDouble("bayar_tunai"),rs.getDouble("bayar_mandiri"),rs.getDouble("bayar_bca"),rs.getDouble("bayar_bni"),rs.getString("petugas")
+                                    i,rs.getString("tgl_bayar"),rsjamshift.getString("shift"),nonota,rs.getString("nama_pasien"),rs.getDouble("jumlah_tagihan"),rs.getDouble("bayar_tunai"),rs.getDouble("bayar_mandiri"),rs.getDouble("bayar_bca"),rs.getDouble("bayar_bni"),rs.getDouble("bayar_piutang"),rs.getString("petugas")
                                 });
                             }else if(rsjamshift.getString("shift").equals(CmbStatus.getSelectedItem().toString())){
                                 nonota=Sequel.cariIsi("select no_nota from nota_inap where no_rawat=?",rs.getString("no_nota"));
@@ -714,7 +725,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                                     }
                                 }
                                 tabMode.addRow(new Object[]{
-                                    i,rs.getString("tgl_bayar"),rsjamshift.getString("shift"),nonota,rs.getString("nama_pasien"),rs.getDouble("jumlah_bayar"),rs.getDouble("bayar_tunai"),rs.getDouble("bayar_mandiri"),rs.getDouble("bayar_bca"),rs.getDouble("bayar_bni"),rs.getString("petugas")
+                                    i,rs.getString("tgl_bayar"),rsjamshift.getString("shift"),nonota,rs.getString("nama_pasien"),rs.getDouble("jumlah_tagihan"),rs.getDouble("bayar_tunai"),rs.getDouble("bayar_mandiri"),rs.getDouble("bayar_bca"),rs.getDouble("bayar_bni"),rs.getDouble("bayar_piutang"),rs.getString("petugas")
                                 });
                             }
                             i++;                            
@@ -743,58 +754,58 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
             double TS = 0;
             if(CmbStatus.getSelectedItem().toString().equals("Semua")){
                 tabMode.addRow(new Object[]{
-                        "","Modal Awal",":","","",Double.parseDouble(ModalAwal.getText()),TS,TS,TS,TS,""
+                        "","Modal Awal",":","","",Double.parseDouble(ModalAwal.getText()),TS,TS,TS,TS,TS,""
                 });
                 tabMode.addRow(new Object[]{
-                        "","Uang Masuk",":","","",all,allcash,allmandiri,allbca,allbni,""
+                        "","Uang Masuk",":","","",all,allcash,allmandiri,allbca,allbni,allpiutang,""
 //                        "","Uang Masuk",":","","",all,Double.parseDouble(all),Double.parseDouble(all),Double.parseDouble(all),Double.parseDouble(all),""
                 });
                 tabMode.addRow(new Object[]{
-                        "",">> Total",":","","",(all+Double.parseDouble(ModalAwal.getText())),(allcash+Double.parseDouble(ModalAwal.getText())),(allmandiri+Double.parseDouble(ModalAwal.getText())),(allbca+Double.parseDouble(ModalAwal.getText())),(allbni+Double.parseDouble(ModalAwal.getText())),""
+                        "",">> Total",":","","",(all+Double.parseDouble(ModalAwal.getText())),(allcash+Double.parseDouble(ModalAwal.getText())),(allmandiri+Double.parseDouble(ModalAwal.getText())),(allbca+Double.parseDouble(ModalAwal.getText())),(allbni+Double.parseDouble(ModalAwal.getText())),(allpiutang+Double.parseDouble(ModalAwal.getText())),""
                 });
             }else if(CmbStatus.getSelectedItem().toString().equals("Pagi")){
                 tabMode.addRow(new Object[]{
-                        "","Modal Awal",":","","",Double.parseDouble(ModalAwal.getText()),TS,TS,TS,TS,""
+                        "","Modal Awal",":","","",Double.parseDouble(ModalAwal.getText()),TS,TS,TS,TS,TS,""
                 });
                 tabMode.addRow(new Object[]{
-                        "","Uang Masuk",":","","",pagi,pagicash,pagimandiri,pagibca,pagibni,""
+                        "","Uang Masuk",":","","",pagi,pagicash,pagimandiri,pagibca,pagibni,pagipiutang,""
   //                      "","Uang Masuk",":","","",pagi,Double.parseDouble(pagi),Double.parseDouble(pagi),Double.parseDouble(pagi),Double.parseDouble(pagi),""
                 });
                 tabMode.addRow(new Object[]{
-                        "",">> Total",":","","",(pagi+Double.parseDouble(ModalAwal.getText())),(pagicash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+Double.parseDouble(ModalAwal.getText())),(pagibni+Double.parseDouble(ModalAwal.getText())),""
+                        "",">> Total",":","","",(pagi+Double.parseDouble(ModalAwal.getText())),(pagicash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+Double.parseDouble(ModalAwal.getText())),(pagibni+Double.parseDouble(ModalAwal.getText())),(pagipiutang+Double.parseDouble(ModalAwal.getText())),""
                 });
             }else if(CmbStatus.getSelectedItem().toString().equals("Siang")){
                 tabMode.addRow(new Object[]{
-                        "","Modal Awal",":","","",(Double.parseDouble(ModalAwal.getText())+pagi),TS,TS,TS,TS,""
+                        "","Modal Awal",":","","",(Double.parseDouble(ModalAwal.getText())+pagi),TS,TS,TS,TS,TS,""
                 });
                 tabMode.addRow(new Object[]{
-                        "","Uang Masuk",":","","",siang,siangcash,siangmandiri,siangbca,siangbni,""
+                        "","Uang Masuk",":","","",siang,siangcash,siangmandiri,siangbca,siangbni,siangpiutang,""
     //                    "","Uang Masuk",":","","",siang,Double.parseDouble(siang),Double.parseDouble(siang),Double.parseDouble(siang),Double.parseDouble(siang),""
                 });
                 tabMode.addRow(new Object[]{
-                        "",">> Total",":","","",(pagi+siang+Double.parseDouble(ModalAwal.getText())),(pagicash+siangcash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+siangmandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+siangbca+Double.parseDouble(ModalAwal.getText())),(pagibni+siangbni+Double.parseDouble(ModalAwal.getText())),""
+                        "",">> Total",":","","",(pagi+siang+Double.parseDouble(ModalAwal.getText())),(pagicash+siangcash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+siangmandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+siangbca+Double.parseDouble(ModalAwal.getText())),(pagibni+siangbni+Double.parseDouble(ModalAwal.getText())),(pagipiutang+siangpiutang+Double.parseDouble(ModalAwal.getText())),""
                 });
             }else if(CmbStatus.getSelectedItem().toString().equals("Sore")){
                 tabMode.addRow(new Object[]{
-                        "","Modal Awal",":","","",(Double.parseDouble(ModalAwal.getText())+pagi+siang),TS,TS,TS,TS,""
+                        "","Modal Awal",":","","",(Double.parseDouble(ModalAwal.getText())+pagi+siang),TS,TS,TS,TS,TS,""
                 });
                 tabMode.addRow(new Object[]{
-                        "","Uang Masuk",":","",sore,sorecash,soremandiri,sorebca,sorebni,""
+                        "","Uang Masuk",":","",sore,sorecash,soremandiri,sorebca,sorebni,sorepiutang,""
       //                  "","Uang Masuk",":","","",sore,Double.parseDouble(sore),Double.parseDouble(sore),Double.parseDouble(sore),Double.parseDouble(sore),""
                 });
                 tabMode.addRow(new Object[]{
-                        "",">> Total",":","","",(pagi+siang+sore+Double.parseDouble(ModalAwal.getText())),(pagicash+siangcash+sorecash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+siangmandiri+soremandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+siangbca+sorebca+Double.parseDouble(ModalAwal.getText())),(pagibni+siangbni+sorebni+Double.parseDouble(ModalAwal.getText())),""
+                        "",">> Total",":","","",(pagi+siang+sore+Double.parseDouble(ModalAwal.getText())),(pagicash+siangcash+sorecash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+siangmandiri+soremandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+siangbca+sorebca+Double.parseDouble(ModalAwal.getText())),(pagibni+siangbni+sorebni+Double.parseDouble(ModalAwal.getText())),(pagipiutang+siangpiutang+sorepiutang+Double.parseDouble(ModalAwal.getText())),""
                 });
             }else if(CmbStatus.getSelectedItem().toString().equals("Malam")){
                 tabMode.addRow(new Object[]{
-                        "","Modal Awal",":","","",(Double.parseDouble(ModalAwal.getText())+pagi+siang+sore),TS,TS,TS,TS,""
+                        "","Modal Awal",":","","",(Double.parseDouble(ModalAwal.getText())+pagi+siang+sore),TS,TS,TS,TS,TS,""
                 });
                 tabMode.addRow(new Object[]{
-                        "","Uang Masuk",":","",malam,malamcash,malammandiri,malambca,malambni,""
+                        "","Uang Masuk",":","",malam,malamcash,malammandiri,malambca,malambni,malampiutang,""
         //                "","Uang Masuk",":","","",malam,Double.parseDouble(malam),Double.parseDouble(malam),Double.parseDouble(malam),Double.parseDouble(malam),""
                 });
                 tabMode.addRow(new Object[]{
-                        "",">> Total",":","","",(pagi+siang+sore+malam+Double.parseDouble(ModalAwal.getText())),(pagicash+siangcash+sorecash+malamcash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+siangmandiri+soremandiri+malammandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+siangbca+sorebca+malambca+Double.parseDouble(ModalAwal.getText())),(pagibni+siangbni+sorebni+malambni+Double.parseDouble(ModalAwal.getText())),""
+                        "",">> Total",":","","",(pagi+siang+sore+malam+Double.parseDouble(ModalAwal.getText())),(pagicash+siangcash+sorecash+malamcash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+siangmandiri+soremandiri+malammandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+siangbca+sorebca+malambca+Double.parseDouble(ModalAwal.getText())),(pagibni+siangbni+sorebni+malambni+Double.parseDouble(ModalAwal.getText())),(pagipiutang+siangpiutang+sorepiutang+malampiutang+Double.parseDouble(ModalAwal.getText())),""
                 });
             }                
         }catch(Exception e){
