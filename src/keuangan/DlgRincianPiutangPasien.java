@@ -18,6 +18,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -186,6 +188,7 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
         BtnAll = new widget.Button();
         jLabel10 = new javax.swing.JLabel();
         LCount = new javax.swing.JLabel();
+        BtnPrintLagi = new widget.Button();
         BtnPrint = new widget.Button();
         BtnKeluar = new widget.Button();
         panelisi4 = new widget.panelisi();
@@ -272,6 +275,7 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
 
         internalFrame1.add(Scroll, java.awt.BorderLayout.CENTER);
 
+        panelGlass5.setMinimumSize(new java.awt.Dimension(836, 45));
         panelGlass5.setName("panelGlass5"); // NOI18N
         panelGlass5.setPreferredSize(new java.awt.Dimension(55, 55));
         panelGlass5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
@@ -338,6 +342,24 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
         LCount.setName("LCount"); // NOI18N
         LCount.setPreferredSize(new java.awt.Dimension(180, 23));
         panelGlass5.add(LCount);
+
+        BtnPrintLagi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
+        BtnPrintLagi.setMnemonic('T');
+        BtnPrintLagi.setText("Cetak Ulang Invoice");
+        BtnPrintLagi.setToolTipText("Alt+T");
+        BtnPrintLagi.setName("BtnPrintLagi"); // NOI18N
+        BtnPrintLagi.setPreferredSize(new java.awt.Dimension(160, 30));
+        BtnPrintLagi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPrintLagiActionPerformed(evt);
+            }
+        });
+        BtnPrintLagi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnPrintLagiKeyPressed(evt);
+            }
+        });
+        panelGlass5.add(BtnPrintLagi);
 
         BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
         BtnPrint.setMnemonic('T');
@@ -666,7 +688,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             biaya = (String)JOptionPane.showInputDialog(null,"Masukkan No Invoice Penagihan","No Invoice",JOptionPane.QUESTION_MESSAGE);
             if(biaya != null && (!"".equals(biaya)))
             {    
-                Sequel.menyimpantf2("invoice","?,?,?,?,?","Invoice",5,new String[]{Valid.SetTgl(Tgl1.getSelectedItem()+""),Valid.SetTgl(Tgl2.getSelectedItem()+""),nmpenjab.getText(),TCari.getText(),biaya});
+                DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                Date tglskrg = new Date();
+                Sequel.menyimpantf2("invoice","?,?,?,?,?,?","Invoice",6,new String[]{Tgl1.getSelectedItem()+"",Tgl2.getSelectedItem()+"",nmpenjab.getText(),TCari.getText(),biaya,Valid.SetTgl(formatter.format(tglskrg)+"")});
                 Map<String, Object> param = new HashMap<>(); 
                     param.put("namars",var.getnamars());
                     param.put("alamatrs",var.getalamatrs());
@@ -723,6 +747,14 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_mnKwitansiActionPerformed
 
+    private void BtnPrintLagiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintLagiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnPrintLagiActionPerformed
+
+    private void BtnPrintLagiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPrintLagiKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnPrintLagiKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -744,6 +776,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnCari;
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
+    private widget.Button BtnPrintLagi;
     private widget.Button BtnSeek2;
     private javax.swing.JLabel LCount;
     private widget.ScrollPane Scroll;
