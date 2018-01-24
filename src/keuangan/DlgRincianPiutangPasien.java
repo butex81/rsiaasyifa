@@ -29,6 +29,7 @@ import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import simrskhanza.DlgCetakInvoicePiutang;
 import simrskhanza.DlgPenanggungJawab;
 
 /**
@@ -44,6 +45,7 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
     private ResultSet rs,rs2;
     private String sqlps2="select sum(totalbiaya) from billing where no_rawat=? and status=? ";
     private DlgPenanggungJawab penjab=new DlgPenanggungJawab(null,false);
+    private DlgCetakInvoicePiutang cetakinvoice=new DlgCetakInvoicePiutang(null,false);
     private double sisapiutang=0,cicilan=0,all=0,Laborat=0,Radiologi=0,Operasi=0,Obat=0,Ranap_Dokter=0,Ranap_Paramedis=0,Ranap_Dokter_Paramedis=0,Ralan_Dokter=0,
              Ralan_Paramedis=0,Ralan_Dokter_Paramedis=0,Tambahan=0,Potongan=0,Kamar=0,Registrasi=0,Harian=0,Retur_Obat=0,Resep_Pulang=0,
              Service=0,ttlLaborat=0,ttlRadiologi=0,ttlOperasi=0,ttlObat=0,ttlRanap_Dokter=0,ttlRanap_Paramedis=0,ttlRalan_Dokter=0,
@@ -157,6 +159,46 @@ public final class DlgRincianPiutangPasien extends javax.swing.JDialog {
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_SPACE){
                     penjab.dispose();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
+        cetakinvoice.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowClosing(WindowEvent e) {}
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(cetakinvoice.getTable().getSelectedRow()!= -1){
+                    kdpenjab.setText("");
+                    nmpenjab.setText(cetakinvoice.getTable().getValueAt(cetakinvoice.getTable().getSelectedRow(),5).toString());
+                    Valid.SetTgl(Tgl1,cetakinvoice.getTable().getValueAt(cetakinvoice.getTable().getSelectedRow(),3).toString());
+                    Valid.SetTgl(Tgl2,cetakinvoice.getTable().getValueAt(cetakinvoice.getTable().getSelectedRow(),4).toString());
+                    TCari.setText(cetakinvoice.getTable().getValueAt(cetakinvoice.getTable().getSelectedRow(),6).toString());
+                    //tampil();
+                }      
+                kdpenjab.requestFocus();
+            }
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {cetakinvoice.emptTeks();}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });   
+        
+        cetakinvoice.getTable().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                    cetakinvoice.dispose();
                 }
             }
             @Override
@@ -690,7 +732,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             {    
                 DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                 Date tglskrg = new Date();
-                Sequel.menyimpantf2("invoice","?,?,?,?,?,?","Invoice",6,new String[]{Tgl1.getSelectedItem()+"",Tgl2.getSelectedItem()+"",nmpenjab.getText(),TCari.getText(),biaya,Valid.SetTgl(formatter.format(tglskrg)+"")});
+                Sequel.menyimpantf2("invoice","?,?,?,?,?,?","Invoice",6,new String[]{Valid.SetTgl(Tgl1.getSelectedItem()+""),Valid.SetTgl(Tgl2.getSelectedItem()+""),nmpenjab.getText(),TCari.getText(),biaya,Valid.SetTgl(formatter.format(tglskrg)+"")});
                 Map<String, Object> param = new HashMap<>(); 
                     param.put("namars",var.getnamars());
                     param.put("alamatrs",var.getalamatrs());
@@ -748,7 +790,11 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }//GEN-LAST:event_mnKwitansiActionPerformed
 
     private void BtnPrintLagiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintLagiActionPerformed
-        // TODO add your handling code here:
+        cetakinvoice.isCek();
+        cetakinvoice.setSize(internalFrame1.getWidth()-40,internalFrame1.getHeight()-40);
+        cetakinvoice.setLocationRelativeTo(internalFrame1);
+        cetakinvoice.setAlwaysOnTop(false);
+        cetakinvoice.setVisible(true);
     }//GEN-LAST:event_BtnPrintLagiActionPerformed
 
     private void BtnPrintLagiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPrintLagiKeyPressed

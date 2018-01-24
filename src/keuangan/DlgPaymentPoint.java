@@ -45,9 +45,9 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
     private double allmandiri=0,pagimandiri=0,siangmandiri=0,soremandiri=0,malammandiri=0;
     private double allbca=0,pagibca=0,siangbca=0,sorebca=0,malambca=0;
     private double allbni=0,pagibni=0,siangbni=0,sorebni=0,malambni=0;
-    private double piutang=0,allpiutang=0,pagipiutang=0,siangpiutang=0,sorepiutang=0,malampiutang=0;
+    private double allpiutang=0,pagipiutang=0,siangpiutang=0,sorepiutang=0,malampiutang=0;
     private int i;
-    private String shift="",tanggal2="",nonota="",pscash="",psmandiri="",psbca="",psbni="";
+    private String tanggal2="",nonota="";
 
     /** Creates new form DlgLhtBiaya
      * @param parent
@@ -599,6 +599,11 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                 siangbni=0;
                 sorebni=0;
                 malambni=0;
+                allpiutang=0;
+                pagipiutang=0;
+                siangpiutang=0;
+                sorepiutang=0;
+                malampiutang=0;                
                 while(rsjamshift.next()){ 
                     /* ps= koneksi.prepareStatement(
                             "select no_nota,tgl_bayar,nama_pasien,jumlah_bayar,petugas from tagihan_sadewa "+
@@ -801,8 +806,7 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                         "","Modal Awal",":","","",(Double.parseDouble(ModalAwal.getText())+pagi+siang+sore),TS,TS,TS,TS,TS,""
                 });
                 tabMode.addRow(new Object[]{
-                        "","Uang Masuk",":","",malam,malamcash,malammandiri,malambca,malambni,malampiutang,""
-        //                "","Uang Masuk",":","","",malam,Double.parseDouble(malam),Double.parseDouble(malam),Double.parseDouble(malam),Double.parseDouble(malam),""
+                        "","Uang Masuk",":","","",malam,malamcash,malammandiri,malambca,malambni,malampiutang,""
                 });
                 tabMode.addRow(new Object[]{
                         "",">> Total",":","","",(pagi+siang+sore+malam+Double.parseDouble(ModalAwal.getText())),(pagicash+siangcash+sorecash+malamcash+Double.parseDouble(ModalAwal.getText())),(pagimandiri+siangmandiri+soremandiri+malammandiri+Double.parseDouble(ModalAwal.getText())),(pagibca+siangbca+sorebca+malambca+Double.parseDouble(ModalAwal.getText())),(pagibni+siangbni+sorebni+malambni+Double.parseDouble(ModalAwal.getText())),(pagipiutang+siangpiutang+sorepiutang+malampiutang+Double.parseDouble(ModalAwal.getText())),""
