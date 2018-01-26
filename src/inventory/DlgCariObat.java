@@ -312,11 +312,11 @@ public final class DlgCariObat extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -332,6 +332,11 @@ public final class DlgCariObat extends javax.swing.JDialog {
         tbObat.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbObat.setComponentPopupMenu(Popup);
         tbObat.setName("tbObat"); // NOI18N
+        tbObat.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tbObatFocusLost(evt);
+            }
+        });
         tbObat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbObatMouseClicked(evt);
@@ -554,7 +559,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
 
         DTPTgl.setEditable(false);
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-09-2017" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-01-2018" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -832,7 +837,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                 }                
             }else if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
                 i=tbObat.getSelectedColumn();
-                if(i==2){
+                if(i==1){
                     try {
                         stokbarang=0;                
                         psstok=koneksi.prepareStatement("select ifnull(stok,'0') from gudangbarang where kd_bangsal=? and kode_brng=?");
@@ -1154,6 +1159,15 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
         caribangsal.setAlwaysOnTop(false);
         caribangsal.setVisible(true);
     }//GEN-LAST:event_BtnGudangActionPerformed
+
+    private void tbObatFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbObatFocusLost
+        i=tbObat.getSelectedColumn();
+        if(i==1){
+            System.out.println("Kolom 1");
+        } else {
+            System.out.println("Kolom Lainnya");
+        }
+    }//GEN-LAST:event_tbObatFocusLost
 
     /**
     * @param args the command line arguments
