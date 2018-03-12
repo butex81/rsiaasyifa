@@ -3372,7 +3372,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                                 pskasdebit.close();
                             } 
                         }
-                    Sequel.menyimpan("temporary_bayar_ranap","'0','SISA BAYAR',':','','','','','<b>"+TKembali.getText()+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
+                    Sequel.menyimpan("temporary_bayar_ranap","'0','KEMBALIAN',':','','','','','<b>"+TKembali.getText()+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
                 }else if(ChkPiutang.isSelected()==true){                                            
                     Sequel.menyimpan("temporary_bayar_ranap","'0','','','','','','','','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
                     Sequel.menyimpan("temporary_bayar_ranap","'0','TOTAL TAGIHAN',':','','','','','<b>"+TtlSemua.getText()+"</b>','Tagihan','','','','','','','','',''","Rekap Harian Tindakan Dokter"); 
@@ -4967,7 +4967,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             if(kekurangan<0){
                 jLabel6.setText("Kekurangan : Rp.");
             }else{
-                jLabel6.setText("Sisa Bayar : Rp.");
+                jLabel6.setText("Kelebihan : Rp.");
             }
                  
             if(chkBulat.isSelected()==true){

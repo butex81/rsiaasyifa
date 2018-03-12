@@ -408,7 +408,8 @@ public final class DlgPaymentPoint extends javax.swing.JDialog {
                                     Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,7).toString()))+"','"+
                                     Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,8).toString()))+"','"+
                                     Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,9).toString()))+"','"+
-                                    tabMode.getValueAt(r,10).toString().replaceAll("'","`")+"','','','','','','','','','','','','','','','','','','','','','','','','','',''","data");
+                                    Valid.SetAngka(Double.parseDouble(tabMode.getValueAt(r,10).toString()))+"','"+
+                                    tabMode.getValueAt(r,11).toString().replaceAll("'","`")+"','','','','','','','','','','','','','','','','','','','','','','','','',''","data");
             }
             Sequel.AutoComitTrue();
             Map<String, Object> param = new HashMap<>();                 
