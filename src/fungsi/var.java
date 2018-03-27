@@ -56,7 +56,7 @@ public final class var {
             mutasi_berkas=false,akun_piutang=false,harian_kso=false,bulanan_kso=false,harian_menejemen=false,bulanan_menejemen=false,inhealth_cek_eligibilitas=false,
             inhealth_referensi_jenpel_ruang_rawat=false,inhealth_referensi_poli=false,inhealth_referensi_faskes=false,inhealth_sjp=false,piutang_ralan=false,
             piutang_ranap=false,detail_piutang_penjab=false,lama_pelayanan_ralan=false,catatan_pasien=false,rl4b=false,rl4asebab=false,rl4bsebab=false,
-            data_HAIs=false,harian_HAIs=false,bulanan_HAIs=false,hitung_bor=false;
+            data_HAIs=false,harian_HAIs=false,bulanan_HAIs=false,hitung_bor=false,hapus_nota=false;
     
     public static void setData(String user, String pass) {
        try {                
@@ -559,6 +559,7 @@ public final class var {
                         var.harian_HAIs=true;
                         var.bulanan_HAIs=true;
                         var.hitung_bor=true;
+                        var.hapus_nota=true;
                     }else if(rs2.getRow()>=1){   
                         rs2.beforeFirst();
                         rs2.next();
@@ -802,6 +803,7 @@ public final class var {
                         var.harian_HAIs=rs2.getBoolean("harian_HAIs");
                         var.bulanan_HAIs=rs2.getBoolean("bulanan_HAIs");                        
                         var.hitung_bor=rs2.getBoolean("hitung_bor");
+                        var.hapus_nota=rs2.getBoolean("hapus_nota");
                     }else if((rs.getRow()==0)&&(rs2.getRow()==0)){
                         var.kode="";                  
                         var.penyakit= false;
@@ -1043,6 +1045,7 @@ public final class var {
                         var.harian_HAIs=false;
                         var.bulanan_HAIs=false;
                         var.hitung_bor=false;
+                        var.hapus_nota=false;
                     }
                 } catch (Exception e) {
                     System.out.println("Notifikasi : "+e);
@@ -1330,4 +1333,6 @@ public final class var {
     public static boolean getharian_HAIs(){return var.harian_HAIs;}
     public static boolean getbulanan_HAIs(){return var.bulanan_HAIs;}
     public static boolean gethitung_bor(){return var.hitung_bor;}
+    public static boolean gethapus_nota(){return var.hapus_nota;} 
+    
 }

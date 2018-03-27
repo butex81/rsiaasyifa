@@ -559,7 +559,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
 
         DTPTgl.setEditable(false);
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-01-2018" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-03-2018" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -726,7 +726,9 @@ public final class DlgCariObat extends javax.swing.JDialog {
                 try {
                     getDataobat();
                     i=tbObat.getSelectedColumn();
-                    if(i==2){
+                    if(i==1){
+                        //BtnKeluar1ActionPerformed(new ActionEvent(evt.getSource(),evt.getID(),"Test"));
+                    } else if(i==2){
                         try {
                             stokbarang=0;  
                             psstok=koneksi.prepareStatement("select ifnull(stok,'0') from gudangbarang where kd_bangsal=? and kode_brng=?");
@@ -837,7 +839,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
                 }                
             }else if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
                 i=tbObat.getSelectedColumn();
-                if(i==1){
+                if(i==2){
                     try {
                         stokbarang=0;                
                         psstok=koneksi.prepareStatement("select ifnull(stok,'0') from gudangbarang where kd_bangsal=? and kode_brng=?");
@@ -886,7 +888,34 @@ public final class DlgCariObat extends javax.swing.JDialog {
                             }
                         } catch (Exception e) {
                             tbObat.setValueAt(0,tbObat.getSelectedRow(),9);
-                        }  
+                        } 
+
+                        ttl=0;
+                        y=0;
+                        int row2=tabModeobat.getRowCount();
+                        for(int r=0;r<row2;r++){ 
+                            try {
+                                if(Double.parseDouble(tabModeobat.getValueAt(r,1).toString())>0){
+                                    y=Double.parseDouble(tabModeobat.getValueAt(r,1).toString())*
+                                      Double.parseDouble(tabModeobat.getValueAt(r,6).toString())+
+                                      Double.parseDouble(tabModeobat.getValueAt(r,8).toString())+
+                                      Double.parseDouble(tabModeobat.getValueAt(r,9).toString());
+                                }                                 
+                            } catch (Exception e) {
+                                y=0;
+                            }
+                            ttl=ttl+y;
+                        }
+                        LTotal.setText(Valid.SetAngka(ttl));
+                        ppnobat=0;
+                        if(tampilkan_ppnobat_ralan.equals("Yes")){
+                            ppnobat=ttl*0.1;
+                            ttl=ttl+ppnobat;
+                            LPpn.setText(Valid.SetAngka(ppnobat));
+                            LTotalTagihan.setText(Valid.SetAngka(ttl));
+                        }
+                        
+                        
                     } catch (Exception e) {
                         tbObat.setValueAt(0,tbObat.getSelectedRow(),10);
                     }
@@ -1162,10 +1191,25 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
 
     private void tbObatFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbObatFocusLost
         i=tbObat.getSelectedColumn();
-        if(i==1){
-            System.out.println("Kolom 1");
-        } else {
-            System.out.println("Kolom Lainnya");
+        switch (i) {
+            case 1:
+                System.out.println("Kolom 1");
+                break;
+            case 2:
+                System.out.println("Kolom 2");
+                break;
+            case 3:
+                System.out.println("Kolom 3");
+                break;
+            case 4:
+                System.out.println("Kolom 4");
+                break;
+            case 5:
+                System.out.println("Kolom 5");
+                break;
+            default:
+                System.out.println("Kolom Lainnya");
+                break;
         }
     }//GEN-LAST:event_tbObatFocusLost
 
