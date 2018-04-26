@@ -726,7 +726,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }else if(tabMode.getRowCount()==0){
             JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
         }else if(keterangan.getText().trim().equals("")){
-            Valid.textKosong(keterangan,"No.Bukti");
+            Valid.textKosong(keterangan,"Keterangan");
         }else if(tabMode.getRowCount()!=0){
             koderekening=Sequel.cariIsi("select kd_rek from akun_bayar where nama_bayar=?",nama_bayar.getSelectedItem().toString());
             Sequel.AutoComitFalse();
