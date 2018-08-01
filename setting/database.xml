@@ -2,8 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment>KhanzaHMS</comment>
-    <entry key="HOST">haamboo.com</entry>
-    <entry key="DATABASE">haamboo_sik</entry>
+    <entry key="HOST">http://207.148.125.149</entry>
+    <entry key="DATABASE">haamboo_sik1</entry>
     <entry key="PORT">3306</entry>
     <entry key="USER">haamboo_simrs</entry>
     <entry key="PAS">212simrsadmin</entry>
